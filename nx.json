@@ -28,6 +28,9 @@
     "stock-e2e": {
       "tags": [],
       "implicitDependencies": ["stock"]
+    },
+    "ui": {
+      "tags": []
     }
   }
 }
