@@ -4,6 +4,12 @@
 
 export const environment = {
   production: false,
+  dominio: 'https://mi.dominio',
+
+  keys : {
+    one: 'onekey',
+    two: 'twokey'
+  }
 };
 
 /*

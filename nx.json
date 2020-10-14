@@ -23,14 +23,14 @@
   },
   "projects": {
     "stock": {
-      "tags": []
+      "tags": ["app-stock"]
     },
     "stock-e2e": {
-      "tags": [],
+      "tags": ["e2e-stock"],
       "implicitDependencies": ["stock"]
     },
-    "ui": {
-      "tags": []
+    "environments": {
+      "tags": ["environments"]
     }
   }
 }

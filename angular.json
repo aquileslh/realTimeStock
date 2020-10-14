@@ -29,8 +29,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/stock/src/environments/environment.ts",
-                  "with": "apps/stock/src/environments/environment.prod.ts"
+                  "replace": "libs/environments/src/lib/environments.ts",
+                  "with": "libs/environments/src/lib/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -121,35 +121,29 @@
         }
       }
     },
-    "ui": {
+    "environments": {
+      "root": "libs/environments",
+      "sourceRoot": "libs/environments/src",
       "projectType": "library",
-      "root": "libs/ui",
-      "sourceRoot": "libs/ui/src",
-      "prefix": "grillo-software",
+      "schematics": {},
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/ui/tsconfig.lib.json",
-              "libs/ui/tsconfig.spec.json"
+              "libs/environments/tsconfig.lib.json",
+              "libs/environments/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/ui/**/*"]
+            "exclude": ["**/node_modules/**", "!libs/environments/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/ui/jest.config.js",
-            "tsConfig": "libs/ui/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/ui/src/test-setup.ts"
+            "jestConfig": "libs/environments/jest.config.js",
+            "tsConfig": "libs/environments/tsconfig.spec.json",
+            "passWithNoTests": true
           }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
         }
       }
     }
