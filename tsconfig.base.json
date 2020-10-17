@@ -16,7 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@grillo-software/ui": ["libs/ui/src/index.ts"]
+      "@grillo-software/ui": ["libs/ui/src/index.ts"],
+      "@grillo-software/environments": ["libs/environments/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
