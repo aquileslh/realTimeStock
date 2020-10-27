@@ -31,6 +31,9 @@
     },
     "environments": {
       "tags": ["environments"]
+    },
+    "styles": {
+      "tags": []
     }
   }
 }

@@ -1,0 +1,37 @@
+.badge-paginator {
+  background-color: $color-hover;
+  height: fit-content;
+  margin-bottom: 8px;
+  padding: 0px 8px;
+  text-align: center;
+  width: fit-content;
+  @include border-box(8px);
+  @include overpass-regular(11px, white);
+  span {
+    padding-left: 8px;
+    @include overpass-regular(16px, white);
+  }
+}
+
+.badge-number {
+  background-color: rgba(252, 160, 37, 0.8);
+  height: fit-content;
+  padding: 0 8px;
+  @include border-box(8px);
+  @include overpass-regular(14px, white);
+}
+
+.badge-inactive {
+  background-color: rgba(255, 4, 58, 0.55);
+  height: fit-content;
+  padding: 0 8px;
+  @include border-box(8px);
+  @include overpass-regular(14px, white);
+}
+.badge-product {
+  background-color: rgba(123, 197, 250, 0.9);
+  height: fit-content;
+  padding: 0 8px;
+  @include border-box(8px);
+  @include overpass-regular(14px, white);
+}

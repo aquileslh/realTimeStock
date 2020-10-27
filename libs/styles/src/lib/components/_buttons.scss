@@ -1,0 +1,46 @@
+@mixin button-wrap($border: $border-radius, $color: #fff, $backcolor: $color-primary) {
+  color: $color;
+  background-color: $backcolor;
+  border: 0px;
+  padding: 7px 16px;
+  text-align: center;
+  width: auto;
+  @include border-box($border);
+  @include overpass-regular($font-size, $color);
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+    -webkit-transition: opacity 300ms linear 100ms;
+    -moz-transition: opacity 300ms linear 100ms;
+    -o-transition: opacity 300ms linear 100ms;
+    transition: opacity 300ms linear 100ms;
+  }
+  &:focus {
+    outline: none;
+    opacity: 0.8;
+    -webkit-transition: opacity 300ms linear 100ms;
+    -moz-transition: opacity 300ms linear 100ms;
+    -o-transition: opacity 300ms linear 100ms;
+    transition: opacity 300ms linear 100ms;
+    box-shadow: 0 5px 3px 0 rgba(0, 0, 0, 0.24), 0 8px 11px 0 rgba(0, 0, 0, 0.19);
+  }
+}
+
+/* CLASS BUTTONS POSITIVE */
+.button-box {
+  display: flex;
+  gap: 1em;
+}
+
+.positive-button-tmp {
+  @include button-wrap($button-radio, #fff, $color-primary);
+}
+
+.negative-button-tmp {
+  @include button-wrap($button-radio, #fff, $color-negative);
+}
+
+.neutral-button-tmp {
+  @include button-wrap($button-radio, $color-subtitle, $white);
+  border: 1px solid $color-subtitle;
+}
