@@ -11,6 +11,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  declarations: [ListComponent],
   imports: [CommonModule, RouterModule.forChild(routes)],
 })
 export class StockListModule {}
