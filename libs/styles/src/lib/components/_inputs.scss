@@ -1,0 +1,119 @@
+.label-input {
+  grid-area: label;
+  @include overpass-light($font-size, $color-label);
+}
+.generic-input {
+  grid-area: genericinput;
+  input {
+    border: 0px;
+    box-shadow: none;
+    border-bottom: 1px solid;
+    border-bottom-color: $input-line;
+    height: auto;
+    margin-bottom: 0.3em;
+    padding: 0px;
+    width: 100%;
+    @include overpass-light($font-size, $color-text);
+    &::placeholder {
+      @include overpass-light(12px, $color-text);
+    }
+    &:focus {
+      border: 0px;
+      box-shadow: none;
+      border-bottom: 1px solid;
+      outline: none;
+    }
+  }
+  .input-focus {
+    border: 0px;
+    border-bottom: 1px solid;
+    border-bottom-color: $input-line;
+    box-shadow: none;
+    height: auto;
+    margin-bottom: 0.3em;
+    padding-left: 0px;
+    @include overpass-light($font-size, $color-text);
+    &:focus {
+      border: 0px;
+      border-bottom: 1px solid;
+      border-bottom-color: $input-primary;
+      box-shadow: none;
+    }
+  }
+  .input-error {
+    border: 0px;
+    border-bottom: 1px solid;
+    border-bottom-color: $input-error;
+    box-shadow: none;
+    height: auto;
+    margin-bottom: 0.3em;
+    padding-left: 0px;
+    @include overpass-light($font-size, $color-text);
+    &:focus {
+      border: 0px;
+      border-bottom: 1px solid;
+      border-bottom-color: $input-error;
+      box-shadow: none;
+    }
+  }
+  .input-success {
+    border: 0px;
+    border-bottom: 1px solid;
+    border-bottom-color: $input-success;
+    box-shadow: none;
+    height: auto;
+    margin-bottom: 0.3em;
+    padding-left: 0px;
+    @include overpass-light($font-size, $color-text);
+    &:focus {
+      border: 0px;
+      border-bottom: 1px solid;
+      border-bottom-color: $input-success;
+      box-shadow: none;
+    }
+  }
+}
+.errors-input {
+  grid-area: errors;
+}
+
+.input-box {
+  display: grid;
+  grid-template-rows: 20px 30px auto;
+  grid-template-areas:
+    'label'
+    'genericinput'
+    'errors';
+  margin-bottom: 5px;
+  min-height: 70px;
+
+  select {
+    border: none;
+    border-bottom: 1px solid $input-line;
+    margin-bottom: 0;
+    width: 100%;
+    @include overpass-light($font-size, $color-text);
+    &:focus {
+      border: 0px;
+      box-shadow: none;
+      border-bottom: 1px solid;
+      outline: none;
+    }
+  }
+
+  .invalid {
+    border-bottom: 2px solid $input-error;
+  }
+  .valid {
+    border-bottom: 2px solid $input-success;
+  }
+}
+
+/* VALIDATION MESSAGES INPUT */
+.error-message {
+  color: $input-error;
+  font-size: 10px;
+}
+.error-asterisk {
+  color: $input-error;
+}

@@ -1,0 +1,83 @@
+// CLASES BASE PARA TEMPLATES DE PROYECTOS
+.main-header {
+  background-color: white; // color de todo el espacio en header
+  box-shadow: 0 3px 6px 0 rgba(101, 101, 101, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  .header-box {
+    margin: 0 auto;
+    max-width: 1280px;
+  }
+}
+
+.main-content {
+  margin-top: 1rem;
+  min-height: calc(100vh - 180px);
+  .main-content-of-modules {
+    margin: 0 auto;
+    max-width: 1280px;
+  }
+}
+
+.main-footer {
+  .footer-box {
+    margin: 0 auto;
+    margin-top: 1rem;
+    max-width: 1280px;
+  }
+}
+
+//TEMPLATE DE ORIGINACION FUERA DE SESSION
+#out-sesion-template {
+  .out-sesion-main-header {
+    @extend .main-header;
+  }
+  .out-sesion-main-content {
+    @extend .main-content;
+  }
+  .out-sesion-main-footer {
+    @extend .main-footer;
+  }
+  @media all and (max-width: 1280px) {
+    .header-box {
+      padding: 0 1rem;
+    }
+    .main-content-of-modules {
+      padding: 0 1rem;
+    }
+    .out-sesion-main-footer {
+      .footer-box {
+        padding: 0 1rem;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+      }
+    }
+  }
+}
+
+// TEMPLATE DE ORIGINACION DENTRO DE SESION
+#template-originacion {
+  .session-main-header {
+    @extend .main-header;
+  }
+  .session-main-content {
+    @extend .main-content;
+  }
+  .session-main-footer {
+    @extend .main-footer;
+  }
+  @media all and (max-width: 1280px) {
+    .header-box {
+      padding: 0 1rem;
+    }
+    .main-content-of-modules {
+      padding: 0 1rem;
+    }
+    .footer-box {
+      padding: 0 1rem;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+  }
+}

@@ -32,6 +32,8 @@
     "environments": {
       "tags": ["environments"]
     },
+    "styles": {
+    },
     "stock-list": {
       "tags": []
     }
