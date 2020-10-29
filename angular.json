@@ -21,8 +21,14 @@
             "polyfills": "apps/stock/src/polyfills.ts",
             "tsConfig": "apps/stock/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/stock/src/favicon.ico", "apps/stock/src/assets"],
-            "styles": ["./libs/styles/src/styles.scss"],
+            "assets": [
+              "apps/stock/src/favicon.ico",
+              "apps/stock/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./libs/styles/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -80,7 +86,10 @@
               "apps/stock/tsconfig.app.json",
               "apps/stock/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/stock/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/stock/**/*"
+            ]
           }
         },
         "test": {
@@ -115,8 +124,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/stock-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/stock-e2e/**/*"]
+            "tsConfig": [
+              "apps/stock-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/stock-e2e/**/*"
+            ]
           }
         }
       }
@@ -134,7 +148,10 @@
               "libs/environments/tsconfig.lib.json",
               "libs/environments/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/environments/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/environments/**/*"
+            ]
           }
         },
         "test": {
@@ -160,7 +177,10 @@
               "libs/styles/tsconfig.lib.json",
               "libs/styles/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/styles/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/styles/**/*"
+            ]
           }
         },
         "test": {
@@ -186,7 +206,10 @@
               "libs/stock-list/tsconfig.lib.json",
               "libs/stock-list/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/stock-list/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/stock-list/**/*"
+            ]
           }
         },
         "test": {
