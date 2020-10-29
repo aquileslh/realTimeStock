@@ -17,7 +17,8 @@
     "baseUrl": ".",
     "paths": {
       "@grillo-software/ui": ["libs/ui/src/index.ts"],
-      "@grillo-software/environments": ["libs/environments/src/index.ts"]
+      "@grillo-software/environments": ["libs/environments/src/index.ts"],
+      "@grillo-software/stock-list": ["libs/stock-list/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
