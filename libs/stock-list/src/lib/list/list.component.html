@@ -1,11 +1,3 @@
-<section>
-  <div id="dollar-price">
-    <p>Precio del dolar</p>
-    <div *ngIf="dollarPrice$ | async as price">
-      <p class="price">{{price.quote.MXN | currency}}</p>
-    </div>
-  </div>
-</section>
 <section class="symbol-list-box">
   <div class="list-box">
     <div *ngFor="let symbol of forexSymbols" class="symbol-data">

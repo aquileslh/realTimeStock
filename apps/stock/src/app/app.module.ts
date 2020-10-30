@@ -1,16 +1,17 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
-import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule, Routes } from '@angular/router';
+import { IndicesBarModule } from '@grillo-software/indices-bar';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
   {
-    path: 'list',
+    path: 'admin',
     loadChildren: () =>
-      import('@grillo-software/stock-list').then((m) => m.StockListModule),
-  },
+      import('@grillo-software/admin-dashboard').then((m) => m.AdminDashboardModule),
+  }
 ];
 
 @NgModule({
@@ -20,6 +21,7 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
+    IndicesBarModule,
   ],
   bootstrap: [AppComponent],
 })

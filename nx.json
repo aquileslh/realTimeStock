@@ -32,9 +32,14 @@
     "environments": {
       "tags": ["environments"]
     },
-    "styles": {
-    },
+    "styles": {},
     "stock-list": {
+      "tags": []
+    },
+    "indices-bar": {
+      "tags": []
+    },
+    "admin-dashboard": {
       "tags": []
     }
   }

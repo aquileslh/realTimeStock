@@ -1,0 +1,8 @@
+<section>
+  <div id="dollar-price">
+    <p>Precio del dolar</p>
+    <div *ngIf="dollarPrice$ | async as price">
+      <p class="price">{{price.quote.MXN | currency}}</p>
+    </div>
+  </div>
+</section>
