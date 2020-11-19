@@ -10,12 +10,11 @@ import { concatMap, delay, map, mergeMap, take, timeout } from 'rxjs/operators';
 })
 export class ListComponent implements OnInit {
   public forexSymbols: any;
-
+  public symbol: any;
   constructor(private forexSymbol: ForexSymbolService) {}
 
   ngOnInit(): void {
     this.getSymbols('MX');
-    // this.emiteValue();
   }
 
   getSymbols(symbol: string): void {
@@ -36,7 +35,7 @@ export class ListComponent implements OnInit {
     const qwe = emt.pipe(concatMap((x) => of(x).pipe(delay(2000))));
 
     qwe.subscribe((x: any) => {
-      console.log(x);
+      this.symbol = x;
     });
   }
 }
