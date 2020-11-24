@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { from, interval, of, timer } from 'rxjs';
+import { from, of } from 'rxjs';
+import { concatMap, delay, take } from 'rxjs/operators';
 import { ForexSymbolService } from '../data-access/forex-symbol.service';
-import { concatMap, delay, map, mergeMap, take, timeout } from 'rxjs/operators';
 
 @Component({
   selector: 'grillo-software-list',
@@ -11,6 +11,7 @@ import { concatMap, delay, map, mergeMap, take, timeout } from 'rxjs/operators';
 export class ListComponent implements OnInit {
   public forexSymbols: any;
   public symbol: any;
+
   constructor(private forexSymbol: ForexSymbolService) {}
 
   ngOnInit(): void {
@@ -31,10 +32,8 @@ export class ListComponent implements OnInit {
 
   emiteValue(forexymbol: any) {
     const emt = from(forexymbol);
-
     const qwe = emt.pipe(concatMap((x) => of(x).pipe(delay(2000))));
-
-    qwe.subscribe((x: any) => {
+    qwe.pipe(take(5)).subscribe((x: any) => {
       this.symbol = x;
     });
   }
