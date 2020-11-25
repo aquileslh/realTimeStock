@@ -45,7 +45,7 @@ li {
 }
 
 // TIPOS DE TEXTO PARA CONTENIDO DE TEMPLATES
-.text-tmp {
+.text-gri {
   @include overpass-regular($font-size, $color-text);
 }
 .text-pla-tmp {
@@ -55,8 +55,8 @@ li {
 .title-of-help-text {
   @include overpass-bold($font-size - 2, $color-subtitle);
 }
-.help-text {
-  @include overpass-regular($font-size - 2, $color-text);
+.help-text-gri {
+  @include overpass-regular($font-size - 6, $color-text);
 }
 .help-text-error {
   @include overpass-regular($font-size - 4, $color-negative);

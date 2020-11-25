@@ -27,9 +27,10 @@ export class ProfileComponent implements OnChanges {
   }
 
   getProfile(symbol: string) {
-    this.profileService.profile(symbol).subscribe(
+    this.profileService.profile(symbol.replace(/ /g, '')).subscribe(
       (response: any) => {
         this.profiles.push(response);
+        this.cd.detectChanges();
       },
       (error: any) => {console.log(error);}
     );
