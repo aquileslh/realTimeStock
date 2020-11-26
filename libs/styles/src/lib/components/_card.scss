@@ -1,0 +1,65 @@
+.card-gri {
+  border: 1px solid whitesmoke;
+  @include border-box(10px);
+  box-shadow: 0 2px 2px rgba(10, 16, 20, 0.24), 0 0 2px rgba(10, 16, 20, 0.12);
+  transition: box-shadow 0.5s;
+  padding: 1rem 0px;
+  text-align: center;
+}
+
+.card-effect-gri {
+  @extend .card-gri;
+  &:hover {
+    box-shadow: 0 8px 8px rgba(10, 16, 20, 0.24), 0 0 8px rgba(10, 16, 20, 0.12);
+  }
+}
+
+.card-pointer-gri {
+  @extend .card-effect-gri;
+  cursor: pointer;
+  .feature-name {
+    @include overpass-bold($font-size + 4, $color-primary);
+  }
+}
+
+.progresBorder {
+  border: 1px solid whitesmoke;
+  border-bottom: 2px solid $progres-color;
+  padding: 0.7em 0.4em 0.3em 0.4em;
+  @include border-box(4px);
+}
+.acceptedBorder {
+  border: 1px solid whitesmoke;
+  border-bottom: 2px solid $acepted-color;
+  padding: 0.7em 0.4em 0.3em 0.4em;
+  @include border-box(4px);
+}
+.rejectedBorder {
+  border: 1px solid whitesmoke;
+  border-bottom: 2px solid $rejected-color;
+  padding: 0.7em 0.4em 0.3em 0.4em;
+  @include border-box(4px);
+}
+.reprocessBorder {
+  border: 1px solid whitesmoke;
+  border-bottom: 2px solid $reprocess-color;
+  padding: 0.7em 0.4em 0.3em 0.4em;
+  @include border-box(4px);
+}
+
+.progresColor {
+  color: $progres-color;
+  @include overpass-bold(1rem, $progres-color);
+}
+.acceptedColor {
+  color: $acepted-color;
+  @include overpass-bold(1rem, $acepted-color);
+}
+.rejectedColor {
+  color: $rejected-color;
+  @include overpass-bold(1rem, $rejected-color);
+}
+.reprocessColor {
+  color: $reprocess-color;
+  @include overpass-bold(1rem, $reprocess-color);
+}

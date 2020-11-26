@@ -1,11 +1,12 @@
-import { Routes, RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { MatTabsModule } from '@angular/material/tabs';
 import { ProfileComponent } from './profile/profile.component';
 
+const materialModule = [MatTabsModule];
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, [...materialModule]],
   declarations: [ProfileComponent],
-  exports: [ProfileComponent]
+  exports: [ProfileComponent],
 })
 export class CompanyProfileModule {}
