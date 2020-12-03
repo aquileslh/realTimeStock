@@ -1,4 +1,8 @@
 <p>{{ symbol | json }}</p>
+<button (click)="graph()">graph</button>
+<div id="inicio">
+
+</div>
 <div class="profiles">
   <mat-tab-group animationDuration="0">
     <mat-tab label="mx">
@@ -8,6 +12,8 @@
         <p>Industry {{ profile.finnhubIndustry }}</p>
         <p>marketCapitalization {{ profile.marketCapitalization }}</p>
         <p>shareOutstanding {{ profile.shareOutstanding }}</p>
+        <div id="{{profile.ticker}}">
+        </div>
       </div>
     </mat-tab>
     <mat-tab label="us">
