@@ -44,6 +44,9 @@
     },
     "company-profile": {
       "tags": []
+    },
+    "final-user-briefcase": {
+      "tags": ["finalUser"]
     }
   }
 }

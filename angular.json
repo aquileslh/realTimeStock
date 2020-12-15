@@ -303,6 +303,38 @@
           "style": "scss"
         }
       }
+    },
+    "final-user-briefcase": {
+      "projectType": "library",
+      "root": "libs/final-user/briefcase",
+      "sourceRoot": "libs/final-user/briefcase/src",
+      "prefix": "grillo-software",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/final-user/briefcase/tsconfig.lib.json",
+              "libs/final-user/briefcase/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/final-user/briefcase/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/final-user/briefcase/jest.config.js",
+            "tsConfig": "libs/final-user/briefcase/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/final-user/briefcase/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {

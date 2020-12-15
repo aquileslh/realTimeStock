@@ -21,7 +21,10 @@
       "@grillo-software/stock-list": ["libs/stock-list/src/index.ts"],
       "@grillo-software/indices-bar": ["libs/indices-bar/src/index.ts"],
       "@grillo-software/admin-dashboard": ["libs/admin-dashboard/src/index.ts"],
-      "@grillo-software/company-profile": ["libs/company-profile/src/index.ts"]
+      "@grillo-software/company-profile": ["libs/company-profile/src/index.ts"],
+      "@grillo-software/final-user/briefcase": [
+        "libs/final-user/briefcase/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

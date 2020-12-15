@@ -8,6 +8,11 @@ import { AppComponent } from './app.component';
 
 const routes: Routes = [
   {
+    path: 'portafolio',
+    loadChildren: () =>
+      import('@grillo-software/final-user/briefcase').then((m) => m.FinalUserBriefcaseModule),
+  },
+  {
     path: 'admin',
     loadChildren: () =>
       import('@grillo-software/admin-dashboard').then((m) => m.AdminDashboardModule),
