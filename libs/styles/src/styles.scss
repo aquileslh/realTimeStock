@@ -46,32 +46,25 @@ li {
 }
 
 // TIPOS DE TEXTO PARA CONTENIDO DE TEMPLATES
-.text-gri {
+.gri-text {
   @include overpass-regular($font-size, $color-text);
 }
-.text-pla-tmp {
+.gri-text-pla {
   @include playfair-regular($font-size, $color-text);
 }
 
-.title-of-help-text {
+.gri-title-of-help-text {
   @include overpass-bold($font-size - 2, $color-subtitle);
 }
-.help-text-gri {
+.gri-help-text {
   @include overpass-regular($font-size - 6, $color-text);
 }
-.help-text-error {
+.gri-help-text-error {
   @include overpass-regular($font-size - 4, $color-negative);
 }
 
-.card-title {
-  @include overpass-bold($font-size + 8, $color-title);
-}
-.card-subtitle-tmp {
-  @include overpass-regular($font-size - 2, $color-title);
-}
-
 // LINKS
-.link-tmp {
+.gri-link-tmp {
   @include link-with-hover;
 }
 

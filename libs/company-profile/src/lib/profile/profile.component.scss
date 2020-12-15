@@ -1,3 +1,14 @@
 .profiles {
+  max-width: 900px;
   padding: 8px;
+  width: 900px;
+  .element-position {
+    justify-content: space-between;
+  }
+  .gri-text {
+    font-size: 12px;
+  }
+  .char{
+    margin-top: 8px;
+  }
 }

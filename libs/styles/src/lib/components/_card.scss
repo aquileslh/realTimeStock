@@ -1,65 +1,73 @@
-.card-gri {
+// Card basico con contorno y borde
+.gri-card {
   border: 1px solid whitesmoke;
   @include border-box(10px);
   box-shadow: 0 2px 2px rgba(10, 16, 20, 0.24), 0 0 2px rgba(10, 16, 20, 0.12);
-  transition: box-shadow 0.5s;
-  padding: 1rem 0px;
+  margin-bottom: 8px;
+  padding: 1rem;
   text-align: center;
+  transition: box-shadow 0.5s;
 }
 
-.card-effect-gri {
-  @extend .card-gri;
+// Card con efecto hover
+.gri-card-effect {
+  @extend .gri-card;
   &:hover {
     box-shadow: 0 8px 8px rgba(10, 16, 20, 0.24), 0 0 8px rgba(10, 16, 20, 0.12);
   }
 }
-
-.card-pointer-gri {
-  @extend .card-effect-gri;
+// Card con efecto y puntero de seleccion
+.gri-card-pointer {
+  @extend .gri-card-effect;
   cursor: pointer;
   .feature-name {
     @include overpass-bold($font-size + 4, $color-primary);
   }
 }
 
-.progresBorder {
-  border: 1px solid whitesmoke;
-  border-bottom: 2px solid $progres-color;
-  padding: 0.7em 0.4em 0.3em 0.4em;
-  @include border-box(4px);
+// *** Formato de texto para cards ***//
+.gri-card-title {
+  @include overpass-bold($font-size + 4, $color-title);
 }
-.acceptedBorder {
-  border: 1px solid whitesmoke;
-  border-bottom: 2px solid $acepted-color;
-  padding: 0.7em 0.4em 0.3em 0.4em;
-  @include border-box(4px);
+.gri-card-subtitle {
+  @include overpass-regular($font-size - 2, $color-title);
 }
-.rejectedBorder {
+
+// clase para borde generico
+.gri-border-bottom-card {
   border: 1px solid whitesmoke;
-  border-bottom: 2px solid $rejected-color;
-  padding: 0.7em 0.4em 0.3em 0.4em;
-  @include border-box(4px);
-}
-.reprocessBorder {
-  border: 1px solid whitesmoke;
-  border-bottom: 2px solid $reprocess-color;
   padding: 0.7em 0.4em 0.3em 0.4em;
   @include border-box(4px);
 }
 
-.progresColor {
-  color: $progres-color;
+// Clases para bordes de tarjetas
+.progres-border {
+  @extend .gri-border-bottom-card;
+  border-bottom: 2px solid $progres-color;
+}
+.accepted-border {
+  @extend .gri-border-bottom-card;
+  padding: 0.7em 0.4em 0.3em 0.4em;
+}
+.rejected-border {
+  @extend .gri-border-bottom-card;
+  padding: 0.7em 0.4em 0.3em 0.4em;
+}
+.reprocess-border {
+  @extend .gri-border-bottom-card;
+  padding: 0.7em 0.4em 0.3em 0.4em;
+}
+
+// Clases para texto con color aplicables
+.progres-color {
   @include overpass-bold(1rem, $progres-color);
 }
-.acceptedColor {
-  color: $acepted-color;
+.accepted-color {
   @include overpass-bold(1rem, $acepted-color);
 }
-.rejectedColor {
-  color: $rejected-color;
+.rejected-color {
   @include overpass-bold(1rem, $rejected-color);
 }
-.reprocessColor {
-  color: $reprocess-color;
+.reprocess-color {
   @include overpass-bold(1rem, $reprocess-color);
 }

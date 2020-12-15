@@ -11,7 +11,7 @@ export class CandlesService {
 	) { }
 
 	candles(symbol: string) {
-		return this.http.get('https://finnhub.io/api/v1/stock/candle?symbol=' + symbol + '&resolution=D&from=1593666000&to=1606888800&token=bu9jf2748v6tjsddpvpg');
+		return this.http.get('https://finnhub.io/api/v1/stock/candle?symbol=' + symbol + '&resolution=D&from=1598918400&to=1608065056&token=bu9jf2748v6tjsddpvpg');
 	}
 
 }

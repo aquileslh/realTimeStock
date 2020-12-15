@@ -1,19 +1,11 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnChanges,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges } from '@angular/core';
+import { createChart } from 'lightweight-charts';
 import { CandlesService } from '../data-access/candles.service';
 import { ProfileService } from '../data-access/profile.service';
-import { createChart } from 'lightweight-charts';
-
 @Component({
   selector: 'grillo-software-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileComponent implements OnChanges {
   @Input() symbol: any;
@@ -26,22 +18,27 @@ export class ProfileComponent implements OnChanges {
     public cd: ChangeDetectorRef,
     private profileService: ProfileService,
     private candlesService: CandlesService
-  ) {
-    // this.cd.detach();
-  }
+  ) {}
 
   ngOnChanges(values: any): void {
-    // this.cd.detectChanges();
-    console.log(values);
     if (values.symbol.currentValue !== undefined) {
       this.getProfile(values.symbol.currentValue.symbol);
     }
   }
 
   private getProfile(symbol: string): void {
+    console.log(symbol);
     this.profileService.profile(symbol.replace(/ /g, '')).subscribe(
       (response: any) => {
-        this.separateByCountry(response);
+        if (response.country) {
+          this.separateByCountry(response);
+        } else {
+          const data = {
+            country: null,
+            ticker: symbol,
+          };
+          this.separateByCountry(data);
+        }
       },
       (error: any) => {
         console.log(error);
@@ -66,13 +63,10 @@ export class ProfileComponent implements OnChanges {
         this.profilesOthers.push(infoSymbol);
         break;
     }
-    // this.cd.detectChanges();
   }
 
   graph(ticker: string, response: any) {
-    console.log('graph');
-    const chart = createChart(ticker, { width: 700, height: 100 });
-    // const lineSeries = chart.addLineSeries();
+    const chart = createChart(ticker, { width: 850, height: 150 });
     const candlestickSeries = chart.addCandlestickSeries();
     const data = [];
 
@@ -93,8 +87,6 @@ export class ProfileComponent implements OnChanges {
       };
       data.push(point);
     }
-    console.log(data);
-
     candlestickSeries.setData(data);
   }
 }
