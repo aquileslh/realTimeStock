@@ -1,0 +1,13 @@
+<div class="display-flex">
+  <section class="symbol-list-box">
+    <div class="list-box">
+      <div *ngFor="let symbol of forexSymbols" class="symbol-data">
+        <p class="gri-text">{{ symbol.symbol }}</p>
+        <code class="gri-help-text">{{ symbol.description }}</code>
+      </div>
+    </div>
+  </section>
+  <section class="symbol-info">
+    <grillo-software-profile [symbol]="symbol"></grillo-software-profile>
+  </section>
+</div>

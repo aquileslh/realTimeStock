@@ -31,6 +31,19 @@
     },
     "environments": {
       "tags": ["environments"]
+    },
+    "styles": {},
+    "stock-list": {
+      "tags": []
+    },
+    "indices-bar": {
+      "tags": []
+    },
+    "admin-dashboard": {
+      "tags": []
+    },
+    "company-profile": {
+      "tags": []
     }
   }
 }
