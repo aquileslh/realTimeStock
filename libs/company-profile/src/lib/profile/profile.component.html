@@ -14,11 +14,8 @@
             <span class="gri-text">shareOutstanding {{ profile.shareOutstanding }}</span>
           </div>
         </div>
-        <div class="char" id="{{profile.ticker}}">
-        </div>
+        <div class="char" id="{{ profile.ticker }}"></div>
       </div>
-    </mat-tab>
-    <mat-tab label="us">
       <div class="gri-card" *ngFor="let profile of profilesUs">
         <div>
           <div class="display-flex element-position">
@@ -31,8 +28,7 @@
             <span class="gri-text">shareOutstanding {{ profile.shareOutstanding }}</span>
           </div>
         </div>
-        <div class="char" id="{{profile.ticker}}">
-        </div>
+        <div class="char" id="{{ profile.ticker }}"></div>
       </div>
     </mat-tab>
     <mat-tab label="others">
@@ -48,8 +44,7 @@
             <span class="gri-text">shareOutstanding {{ profile.shareOutstanding }}</span>
           </div>
         </div>
-        <div class="char" id="{{profile.ticker}}">
-        </div>
+        <div class="char" id="{{ profile.ticker }}"></div>
       </div>
     </mat-tab>
   </mat-tab-group>

@@ -47,6 +47,9 @@
     },
     "final-user-briefcase": {
       "tags": ["finalUser"]
+    },
+    "service": {
+      "tags": []
     }
   }
 }

@@ -15,7 +15,6 @@ export class ProfileComponent implements OnChanges {
   public profilesOthers = [];
 
   constructor(
-    public cd: ChangeDetectorRef,
     private profileService: ProfileService,
     private candlesService: CandlesService
   ) {}
@@ -58,6 +57,11 @@ export class ProfileComponent implements OnChanges {
         break;
       case 'US':
         this.profilesUs.push(infoSymbol);
+        this.candlesService
+          .candles(infoSymbol.ticker)
+          .subscribe((response: any) => {
+            this.graph(infoSymbol.ticker, response);
+          });
         break;
       default:
         this.profilesOthers.push(infoSymbol);
