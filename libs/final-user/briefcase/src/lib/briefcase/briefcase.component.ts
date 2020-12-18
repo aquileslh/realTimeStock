@@ -8,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./briefcase.component.scss'],
 })
 export class BriefcaseComponent implements OnInit {
-
   public symbol: any;
 
   constructor(
@@ -23,12 +22,36 @@ export class BriefcaseComponent implements OnInit {
         this.utilityService.emitValues(response).subscribe(
           (responseT: any) => {
             console.log(responseT);
-            this.symbol = {symbol: responseT};
+            // this.symbol = { symbol: responseT };
           },
           (error: any) => {
             console.log(error);
           }
         );
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+    this.getList('briefcase');
+  }
+
+  addList() {
+    const list = { list: ['AAL.MX', 'ABT.MX', 'AXP.MX', 'ABBV.MX', 'AAPL.MX'] };
+    this.briefcaseService
+      .setlistAfs(list)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  getList(name: string) {
+    this.briefcaseService.getList(name).subscribe(
+      (response: any) => {
+        console.log(response);
       },
       (error: any) => {
         console.log(error);

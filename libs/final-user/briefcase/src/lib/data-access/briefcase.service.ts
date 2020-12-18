@@ -1,10 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
-
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from '@angular/fire/firestore';
 @Injectable({ providedIn: 'root' })
 export class BriefcaseService {
-  constructor(private httpClient: HttpClient) {}
+  private itemsCollection: AngularFirestoreCollection<any>;
+
+  private readonly nameCollection = 'briefcaseuno';
+
+  constructor(
+    private httpClient: HttpClient,
+    private readonly afs: AngularFirestore
+  ) {}
+
+  setlistAfs(list: any) {
+    return this.afs.collection(this.nameCollection).add(list);
+  }
+
+  getList(name: string) {
+    this.itemsCollection = this.afs.collection<any>(name);
+    return this.itemsCollection.valueChanges();
+  }
 
   public list(name: string) {
     return of([
