@@ -1,7 +1,33 @@
-import { ChangeDetectorRef, Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { createChart } from 'lightweight-charts';
 import { CandlesService } from '../data-access/candles.service';
 import { ProfileService } from '../data-access/profile.service';
+
+export interface symbolData {
+  currency: string;
+  description: string;
+  displaySymbol: string;
+  figi: string;
+  mic: string;
+  symbol: string;
+  type: string;
+}
+
+export interface profile {
+  country: string;
+  currency: string;
+  exchange: string;
+  ipo: string;
+  marketCapitalization: number;
+  name: string;
+  phone: string;
+  shareOutstanding: number;
+  ticker: string;
+  weburl: string;
+  logo: string;
+  finnhubIndustry: string;
+}
+
 @Component({
   selector: 'grillo-software-profile',
   templateUrl: './profile.component.html',
@@ -19,24 +45,49 @@ export class ProfileComponent implements OnChanges {
     private candlesService: CandlesService
   ) {}
 
+  /**
+   * Escucha los eventos de cambio emitidos por el componente padre
+   * @param values Objto con nuevo valor obtemnido del padre
+   */
   ngOnChanges(values: any): void {
     if (values.symbol.currentValue !== undefined) {
-      this.getProfile(values.symbol.currentValue.symbol);
+      this.getProfile(values.symbol.currentValue);
     }
   }
 
-  private getProfile(symbol: string): void {
-    console.log(symbol);
-    this.profileService.profile(symbol.replace(/ /g, '')).subscribe(
-      (response: any) => {
+  /**
+   * Obtiene el perfil basico de la compañia
+   * @param symbol simbolo
+   */
+  private getProfile(symbolData: symbolData): void {
+    console.log(symbolData);
+    this.profileService.profile(symbolData.symbol.replace(/ /g, '')).subscribe(
+      (response: profile) => {
         if (response.country) {
-          this.separateByCountry(response);
+          const profile = {
+            ...symbolData,
+            country: response.country,
+            exchange: response.exchange,
+            ipo: response.ipo,
+            marketCapitalization: response.marketCapitalization,
+            name: response.name,
+            phone: response.phone,
+            shareOutstanding: response.shareOutstanding,
+            ticker: response.ticker,
+            weburl: response.weburl,
+            logo: response.logo,
+            finnhubIndustry: response.finnhubIndustry,
+          };
+          this.profileService.save(
+            symbolData.symbol.replace(/ /g, ''),
+            profile
+          );
         } else {
           const data = {
             country: null,
-            ticker: symbol,
+            ticker: symbolData.symbol,
           };
-          this.separateByCountry(data);
+          // this.separateByCountry(data);
         }
       },
       (error: any) => {
@@ -45,6 +96,10 @@ export class ProfileComponent implements OnChanges {
     );
   }
 
+  /**
+   *
+   * @param infoSymbol
+   */
   private separateByCountry(infoSymbol: any): void {
     switch (infoSymbol.country) {
       case 'MX':

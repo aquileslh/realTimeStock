@@ -4,25 +4,38 @@ import { of } from 'rxjs';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
+  AngularFirestoreDocument,
 } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
 @Injectable({ providedIn: 'root' })
 export class BriefcaseService {
   private itemsCollection: AngularFirestoreCollection<any>;
-
-  private readonly nameCollection = 'briefcaseuno';
 
   constructor(
     private httpClient: HttpClient,
     private readonly afs: AngularFirestore
   ) {}
 
-  setlistAfs(list: any) {
-    return this.afs.collection(this.nameCollection).add(list);
+  getDoc(nameCollection: string) {
+    this.itemsCollection = this.afs.collection(nameCollection);
+    return this.itemsCollection.valueChanges({ idField: 'customID' });
+  }
+
+  setlistAfs(nameCollection: string, nameDoc: string, data: any) {
+    return this.afs.collection(nameCollection).doc(nameDoc).set(data);
   }
 
   getList(name: string) {
     this.itemsCollection = this.afs.collection<any>(name);
-    return this.itemsCollection.valueChanges();
+    return this.itemsCollection.snapshotChanges().pipe(
+      map((actions: Array<any>) => {
+        actions.map((a) => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return of({ id, ...data });
+        });
+      })
+    );
   }
 
   public list(name: string) {

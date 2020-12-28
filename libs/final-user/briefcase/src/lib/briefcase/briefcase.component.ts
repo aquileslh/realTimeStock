@@ -1,6 +1,6 @@
+import { Component, OnInit } from '@angular/core';
 import { UtilityService } from '@grillo-software/service';
 import { BriefcaseService } from './../data-access/briefcase.service';
-import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'grillo-software-briefcase',
@@ -9,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BriefcaseComponent implements OnInit {
   public symbol: any;
+
+  private readonly nameCollection = 'portafolio';
 
   constructor(
     private briefcaseService: BriefcaseService,
@@ -33,18 +35,51 @@ export class BriefcaseComponent implements OnInit {
         console.log(error);
       }
     );
-    this.getList('briefcase');
+    this.getList(this.nameCollection);
+    this.getDoc();
   }
 
   addList() {
-    const list = { list: ['AAL.MX', 'ABT.MX', 'AXP.MX', 'ABBV.MX', 'AAPL.MX'] };
+    const list = [
+      {
+        name: 'aerolineas',
+        list: { list: ['AAL.MX', 'ABT.MX', 'AXP.MX', 'ABBV.MX', 'AAPL.MX'] },
+      },
+      {
+        name: 'medicina',
+        list: {
+          list: [
+            'TSLA.MX',
+            'TTWO.MX',
+            'TWLO.MX',
+            'TWTR.MX',
+            'TXN.MX',
+            'UAA.MX',
+            'UAL.MX',
+            'UBER.MX',
+          ],
+        },
+      },
+    ];
+    list.forEach((element) => {
+      this.briefcaseService
+        .setlistAfs(this.nameCollection, element.name, element.list)
+        .then((response) => {
+          console.log('agrega lista');
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  }
+
+  getDoc() {
     this.briefcaseService
-      .setlistAfs(list)
-      .then((response) => {
+      .getDoc(this.nameCollection)
+      .subscribe((response: any) => {
+        console.log('obtiene data');
         console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
       });
   }
 
