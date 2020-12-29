@@ -3,7 +3,7 @@ import { createChart } from 'lightweight-charts';
 import { CandlesService } from '../data-access/candles.service';
 import { ProfileService } from '../data-access/profile.service';
 
-export interface symbolData {
+export interface SymbolData {
   currency: string;
   description: string;
   displaySymbol: string;
@@ -13,7 +13,7 @@ export interface symbolData {
   type: string;
 }
 
-export interface profile {
+export interface Profile {
   country: string;
   currency: string;
   exchange: string;
@@ -59,10 +59,10 @@ export class ProfileComponent implements OnChanges {
    * Obtiene el perfil basico de la compañia
    * @param symbol simbolo
    */
-  private getProfile(symbolData: symbolData): void {
-    console.log(symbolData);
+  private getProfile(symbolData: SymbolData): void {
     this.profileService.profile(symbolData.symbol.replace(/ /g, '')).subscribe(
-      (response: profile) => {
+      (response: Profile) => {
+        console.info(response);
         if (response.country) {
           const profile = {
             ...symbolData,
@@ -87,6 +87,8 @@ export class ProfileComponent implements OnChanges {
             country: null,
             ticker: symbolData.symbol,
           };
+          console.warn(symbolData.symbol);
+          console.warn(response);
           // this.separateByCountry(data);
         }
       },

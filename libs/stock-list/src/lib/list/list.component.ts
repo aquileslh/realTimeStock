@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { from, of } from 'rxjs';
-import { concatMap, delay } from 'rxjs/operators';
+import { concatMap, delay, take } from 'rxjs/operators';
 import { ForexSymbolService } from '../data-access/forex-symbol.service';
 @Component({
   selector: 'grillo-software-list',
@@ -40,8 +40,8 @@ export class ListComponent implements OnInit {
   emiteValue(forexymbol: any) {
     const emt = from(forexymbol);
     const qwe = emt.pipe(concatMap((x) => of(x).pipe(delay(5000))));
-    // qwe.pipe(take(20)).subscribe((x: any) => {
-    qwe.subscribe((x: any) => {
+    qwe.pipe(take(20)).subscribe((x: any) => {
+    // qwe.subscribe((x: any) => {
       this.symbol = x;
     });
   }
