@@ -1,3 +1,4 @@
+import { environment } from '@grillo-software/environments';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
@@ -8,19 +9,28 @@ import {
 })
 export class ProfileService {
 
-  private readonly nameCollection = 'profiles';
-
+  private readonly profileCollection = 'profiles';
+  private readonly withoutProfileCollection = 'withoutProfile';
+  private readonly equivalentProfileCollection = 'equivalentProfile';
 	constructor(
     private http: HttpClient,
     private readonly afs: AngularFirestore
 	) { }
 
 	profile(symbol: string) {
-		return this.http.get('https://finnhub.io/api/v1/stock/profile2?symbol=' + symbol + '&token=bu9jf2748v6tjsddpvpg');
+		return this.http.get(environment.domainFinnhub + 'profile2?symbol=' + symbol + '&token=' + environment.tokenFinnhub);
 	}
 
   save(symbol: string, data: any) {
-    return this.afs.collection(this.nameCollection).doc(symbol).set(data);
-
+    return this.afs.collection(this.profileCollection).doc(symbol).set(data);
   }
+
+  saveWithoutProfile(symbol: string, data: any) {
+    return this.afs.collection(this.withoutProfileCollection).doc(symbol).set(data);
+  }
+
+  equivalentProfile(){
+    return this.afs.collection(this.equivalentProfileCollection).snapshotChanges();
+  }
+
 }

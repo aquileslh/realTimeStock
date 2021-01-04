@@ -11,6 +11,9 @@ export const environment = {
     two: 'twokey'
   },
 
+  tokenFinnhub : 'bu9jf2748v6tjsddpvpg',
+  domainFinnhub : 'https://finnhub.io/api/v1/stock/',
+
   firebaseConfig : {
     apiKey: "AIzaSyASBGpVTdqzMqGM_WlHUNBWhTRURKaKjC8",
     authDomain: "sharesofstock-35a56.firebaseapp.com",

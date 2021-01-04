@@ -1,5 +1,7 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { createChart } from 'lightweight-charts';
+import { pipe } from 'rxjs';
 import { CandlesService } from '../data-access/candles.service';
 import { ProfileService } from '../data-access/profile.service';
 
@@ -33,17 +35,33 @@ export interface Profile {
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
-export class ProfileComponent implements OnChanges {
+export class ProfileComponent implements OnChanges, OnInit {
   @Input() symbol: any;
 
-  public profilesMx = [];
-  public profilesUs = [];
-  public profilesOthers = [];
-
+  public profiles = [];
+  private equivalentProfile = [];
   constructor(
     private profileService: ProfileService,
     private candlesService: CandlesService
   ) {}
+
+  ngOnInit() {
+    this.profileService.equivalentProfile().subscribe(
+      (red: any) => {
+        this.equivalentProfile = red;
+        // red.forEach(element => {
+        //   console.log(element.payload.doc.data());
+        //   console.log(element.payload.doc.id);
+        // });
+      }
+      // map((actions) =>
+      //   actions.map((a) => {
+      //     console.log(a.payload.doc.data());
+      //     console.log(a.payload.doc.id);
+      //   })
+      // )
+    );
+  }
 
   /**
    * Escucha los eventos de cambio emitidos por el componente padre
@@ -60,12 +78,26 @@ export class ProfileComponent implements OnChanges {
    * @param symbol simbolo
    */
   private getProfile(symbolData: SymbolData): void {
+    this.equivalentProfile.forEach((element) => {
+      console.log(element.payload.doc.data());
+      console.log(element.payload.doc.id);
+      if (element.payload.doc.id === symbolData.symbol.replace(/ /g, '')) {
+        console.log('sustitucion');
+        symbolData.symbol = element.payload.doc.data().symbol;
+      }
+    });
+    console.log(symbolData);
     this.profileService.profile(symbolData.symbol.replace(/ /g, '')).subscribe(
       (response: Profile) => {
-        console.info(response);
         if (response.country) {
           const profile = {
-            ...symbolData,
+            currency: symbolData.currency,
+            description: symbolData.description,
+            displaySymbol: symbolData.displaySymbol,
+            figi: symbolData.figi,
+            mic: symbolData.mic,
+            symbol: symbolData.symbol.replace(/ /g, ''),
+            type: symbolData.type,
             country: response.country,
             exchange: response.exchange,
             ipo: response.ipo,
@@ -78,52 +110,25 @@ export class ProfileComponent implements OnChanges {
             logo: response.logo,
             finnhubIndustry: response.finnhubIndustry,
           };
-          this.profileService.save(
-            symbolData.symbol.replace(/ /g, ''),
-            profile
-          );
+          this.profileService
+            .save(symbolData.symbol.replace(/ /g, ''), profile)
+            .then((resp) => {
+              console.log(resp);
+              this.profiles.push(profile);
+            });
         } else {
-          const data = {
-            country: null,
-            ticker: symbolData.symbol,
-          };
           console.warn(symbolData.symbol);
-          console.warn(response);
-          // this.separateByCountry(data);
+          this.profileService.saveWithoutProfile(
+            symbolData.symbol.replace(/ /g, ''),
+            symbolData
+          );
+          // guarda en lista de equivalen eliminando desde *.MX
         }
       },
       (error: any) => {
         console.log(error);
       }
     );
-  }
-
-  /**
-   *
-   * @param infoSymbol
-   */
-  private separateByCountry(infoSymbol: any): void {
-    switch (infoSymbol.country) {
-      case 'MX':
-        this.profilesMx.push(infoSymbol);
-        this.candlesService
-          .candles(infoSymbol.ticker)
-          .subscribe((response: any) => {
-            this.graph(infoSymbol.ticker, response);
-          });
-        break;
-      case 'US':
-        this.profilesUs.push(infoSymbol);
-        this.candlesService
-          .candles(infoSymbol.ticker)
-          .subscribe((response: any) => {
-            this.graph(infoSymbol.ticker, response);
-          });
-        break;
-      default:
-        this.profilesOthers.push(infoSymbol);
-        break;
-    }
   }
 
   graph(ticker: string, response: any) {

@@ -1,51 +1,22 @@
-<p>{{ symbol | json }}</p>
 <div class="profiles">
-  <mat-tab-group animationDuration="0">
-    <mat-tab label="mx">
-      <div class="gri-card" *ngFor="let profile of profilesMx">
-        <div>
-          <div class="display-flex element-position">
-            <b class="gri-card-title">{{ profile.ticker }}</b>
-            <span class="gri-card-subtitle">{{ profile.name }}</span>
-          </div>
-          <div class="display-flex element-position">
-            <span class="gri-text">Industry {{ profile.finnhubIndustry }}</span>
-            <span class="gri-text">marketCapitalization {{ profile.marketCapitalization }}</span>
-            <span class="gri-text">shareOutstanding {{ profile.shareOutstanding }}</span>
-          </div>
-        </div>
-        <div class="char" id="{{ profile.ticker }}"></div>
+  <div class="gri-card" *ngFor="let profile of profiles">
+    <div>
+      <div class="display-flex element-position">
+        <b class="gri-card-title">{{ profile.symbol }}</b>
+        <span class="gri-card-subtitle">{{ profile.name }}</span>
       </div>
-      <div class="gri-card" *ngFor="let profile of profilesUs">
-        <div>
-          <div class="display-flex element-position">
-            <b class="gri-card-title">{{ profile.ticker }}</b>
-            <span class="gri-card-subtitle">{{ profile.name }}</span>
-          </div>
-          <div class="display-flex element-position">
-            <span class="gri-text">Industry {{ profile.finnhubIndustry }}</span>
-            <span class="gri-text">marketCapitalization {{ profile.marketCapitalization }}</span>
-            <span class="gri-text">shareOutstanding {{ profile.shareOutstanding }}</span>
-          </div>
-        </div>
-        <div class="char" id="{{ profile.ticker }}"></div>
+      <div class="display-flex element-position">
+        <span class="gri-text">Country: {{ profile.country }} </span>
+        <span class="gri-text">Currency: {{ profile.currency }}</span>
+        <span class="gri-text">Industry: {{ profile.finnhubIndustry }}</span>
+        <span class="gri-text"
+          >Market Capitalization: {{ profile.marketCapitalization }}</span
+        >
+        <span class="gri-text"
+          >Share Outstanding: {{ profile.shareOutstanding }}</span
+        >
       </div>
-    </mat-tab>
-    <mat-tab label="others">
-      <div class="gri-card" *ngFor="let profile of profilesOthers">
-        <div>
-          <div class="display-flex element-position">
-            <b class="gri-card-title">{{ profile.ticker }}</b>
-            <span class="gri-card-subtitle">{{ profile.name }}</span>
-          </div>
-          <div class="display-flex element-position">
-            <span class="gri-text">Industry {{ profile.finnhubIndustry }}</span>
-            <span class="gri-text">marketCapitalization {{ profile.marketCapitalization }}</span>
-            <span class="gri-text">shareOutstanding {{ profile.shareOutstanding }}</span>
-          </div>
-        </div>
-        <div class="char" id="{{ profile.ticker }}"></div>
-      </div>
-    </mat-tab>
-  </mat-tab-group>
+    </div>
+    <div class="char" id="{{ profile.ticker }}"></div>
+  </div>
 </div>
