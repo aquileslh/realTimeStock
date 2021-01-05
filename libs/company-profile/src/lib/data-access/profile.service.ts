@@ -29,8 +29,13 @@ export class ProfileService {
     return this.afs.collection(this.withoutProfileCollection).doc(symbol).set(data);
   }
 
+  saveEquivalentProfile(symbol: string, data: any) {
+    return this.afs.collection(this.equivalentProfileCollection).doc(symbol).set(data);
+  }
+
   equivalentProfile(){
     return this.afs.collection(this.equivalentProfileCollection).snapshotChanges();
   }
+
 
 }

@@ -40,7 +40,7 @@ export class ListComponent implements OnInit {
   emiteValue(forexymbol: any) {
     const emt = from(forexymbol);
     const qwe = emt.pipe(concatMap((x) => of(x).pipe(delay(5000))));
-    qwe.pipe(take(10)).subscribe((x: any) => {
+    qwe.pipe(take(1000)).subscribe((x: any) => {
     // qwe.subscribe((x: any) => {
       this.symbol = x;
     });

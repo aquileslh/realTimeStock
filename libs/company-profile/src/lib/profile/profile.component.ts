@@ -79,14 +79,12 @@ export class ProfileComponent implements OnChanges, OnInit {
    */
   private getProfile(symbolData: SymbolData): void {
     this.equivalentProfile.forEach((element) => {
-      console.log(element.payload.doc.data());
-      console.log(element.payload.doc.id);
       if (element.payload.doc.id === symbolData.symbol.replace(/ /g, '')) {
-        console.log('sustitucion');
+        // console.log('sustitucion');
         symbolData.symbol = element.payload.doc.data().symbol;
       }
     });
-    console.log(symbolData);
+    // console.log(symbolData);
     this.profileService.profile(symbolData.symbol.replace(/ /g, '')).subscribe(
       (response: Profile) => {
         if (response.country) {
@@ -110,19 +108,15 @@ export class ProfileComponent implements OnChanges, OnInit {
             logo: response.logo,
             finnhubIndustry: response.finnhubIndustry,
           };
-          this.profileService
-            .save(symbolData.symbol.replace(/ /g, ''), profile)
-            .then((resp) => {
-              console.log(resp);
-              this.profiles.push(profile);
-            });
+          this.profileService.save(profile.symbol, profile).then((resp) => {
+            this.profiles.push(profile);
+          });
         } else {
-          console.warn(symbolData.symbol);
-          this.profileService.saveWithoutProfile(
-            symbolData.symbol.replace(/ /g, ''),
-            symbolData
-          );
-          // guarda en lista de equivalen eliminando desde *.MX
+          const symbol = symbolData.symbol.replace(/ /g, '');
+          const equivalent = symbol.split('*');
+          this.profileService.saveWithoutProfile(symbol, symbolData);
+          symbolData.symbol = equivalent[0];
+          this.profileService.saveEquivalentProfile(symbol, symbolData);
         }
       },
       (error: any) => {
