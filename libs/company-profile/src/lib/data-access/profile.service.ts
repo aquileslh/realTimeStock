@@ -29,6 +29,10 @@ export class ProfileService {
     return this.afs.collection(this.withoutProfileCollection).doc(symbol).set(data);
   }
 
+  deleteWithoutProfile(symbol: string) {
+    this.afs.collection(this.withoutProfileCollection).doc(symbol).delete();
+  }
+
   saveEquivalentProfile(symbol: string, data: any) {
     return this.afs.collection(this.equivalentProfileCollection).doc(symbol).set(data);
   }

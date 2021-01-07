@@ -1,7 +1,5 @@
-import { map } from 'rxjs/operators';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { createChart } from 'lightweight-charts';
-import { pipe } from 'rxjs';
 import { CandlesService } from '../data-access/candles.service';
 import { ProfileService } from '../data-access/profile.service';
 
@@ -13,6 +11,8 @@ export interface SymbolData {
   mic: string;
   symbol: string;
   type: string;
+  symbolChange: string;
+  confirm: boolean;
 }
 
 export interface Profile {
@@ -46,21 +46,9 @@ export class ProfileComponent implements OnChanges, OnInit {
   ) {}
 
   ngOnInit() {
-    this.profileService.equivalentProfile().subscribe(
-      (red: any) => {
-        this.equivalentProfile = red;
-        // red.forEach(element => {
-        //   console.log(element.payload.doc.data());
-        //   console.log(element.payload.doc.id);
-        // });
-      }
-      // map((actions) =>
-      //   actions.map((a) => {
-      //     console.log(a.payload.doc.data());
-      //     console.log(a.payload.doc.id);
-      //   })
-      // )
-    );
+    this.profileService.equivalentProfile().subscribe((red: any) => {
+      this.equivalentProfile = red;
+    });
   }
 
   /**
@@ -78,51 +66,66 @@ export class ProfileComponent implements OnChanges, OnInit {
    * @param symbol simbolo
    */
   private getProfile(symbolData: SymbolData): void {
-    this.equivalentProfile.forEach((element) => {
-      if (element.payload.doc.id === symbolData.symbol.replace(/ /g, '')) {
-        // console.log('sustitucion');
-        symbolData.symbol = element.payload.doc.data().symbol;
-      }
-    });
-    // console.log(symbolData);
-    this.profileService.profile(symbolData.symbol.replace(/ /g, '')).subscribe(
-      (response: Profile) => {
-        if (response.country) {
-          const profile = {
-            currency: symbolData.currency,
-            description: symbolData.description,
-            displaySymbol: symbolData.displaySymbol,
-            figi: symbolData.figi,
-            mic: symbolData.mic,
-            symbol: symbolData.symbol.replace(/ /g, ''),
-            type: symbolData.type,
-            country: response.country,
-            exchange: response.exchange,
-            ipo: response.ipo,
-            marketCapitalization: response.marketCapitalization,
-            name: response.name,
-            phone: response.phone,
-            shareOutstanding: response.shareOutstanding,
-            ticker: response.ticker,
-            weburl: response.weburl,
-            logo: response.logo,
-            finnhubIndustry: response.finnhubIndustry,
-          };
-          this.profileService.save(profile.symbol, profile).then((resp) => {
-            this.profiles.push(profile);
-          });
-        } else {
-          const symbol = symbolData.symbol.replace(/ /g, '');
-          const equivalent = symbol.split('*');
-          this.profileService.saveWithoutProfile(symbol, symbolData);
-          symbolData.symbol = equivalent[0];
-          this.profileService.saveEquivalentProfile(symbol, symbolData);
+    if (!symbolData.confirm) {
+      this.equivalentProfile.forEach((element) => {
+        // Busca equivalencia
+        if (
+          element.payload.doc.id === symbolData.symbolChange.replace(/ /g, '')
+        ) {
+          console.log(element.payload.doc.data());
+          symbolData.symbolChange = element.payload.doc.data().symbolChange; // sustituye equivalencia
+          console.log('------sustitucion', symbolData.symbolChange);
         }
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+      });
+    }
+    // console.log(symbolData);
+    this.profileService
+      .profile(symbolData.symbolChange.replace(/ /g, ''))
+      .subscribe(
+        (response: Profile) => {
+          if (response.country) {
+            const profile = {
+              currency: response.currency,
+              description: symbolData.description,
+              displaySymbol: symbolData.displaySymbol,
+              figi: symbolData.figi,
+              mic: symbolData.mic,
+              symbol: symbolData.symbol.replace(/ /g, ''),
+              symbolChange: symbolData.symbolChange,
+              confirm: true,
+              type: symbolData.type,
+              country: response.country,
+              exchange: response.exchange,
+              ipo: response.ipo,
+              marketCapitalization: response.marketCapitalization,
+              name: response.name,
+              phone: response.phone,
+              shareOutstanding: response.shareOutstanding,
+              ticker: response.ticker,
+              weburl: response.weburl,
+              logo: response.logo,
+              finnhubIndustry: response.finnhubIndustry,
+            };
+            this.profileService.save(profile.symbol, profile).then((resp) => {
+              this.profiles.push(profile);
+            });
+            // elimina sin perfil si se encuantra en la lista
+            this.profileService.deleteWithoutProfile(
+              symbolData.displaySymbol.replace(/ /g, '')
+            );
+          } else {
+            // Guarda en lista sin perfil y posible equivalencia
+            const symbol = symbolData.symbolChange.replace(/ /g, '');
+            const equivalent = symbol.split('*');
+            this.profileService.saveWithoutProfile(symbol, symbolData);
+            symbolData.symbolChange = equivalent[0]; // Actualiza el symbolo por el nuevo que si consulta el perfil
+            this.profileService.saveEquivalentProfile(symbol, symbolData);
+          }
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
   }
 
   graph(ticker: string, response: any) {
