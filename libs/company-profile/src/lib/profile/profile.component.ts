@@ -12,7 +12,6 @@ export interface SymbolData {
   symbol: string;
   type: string;
   symbolChange: string;
-  confirm: boolean;
 }
 
 export interface Profile {
@@ -66,18 +65,16 @@ export class ProfileComponent implements OnChanges, OnInit {
    * @param symbol simbolo
    */
   private getProfile(symbolData: SymbolData): void {
-    if (!symbolData.confirm) {
-      this.equivalentProfile.forEach((element) => {
-        // Busca equivalencia
-        if (
-          element.payload.doc.id === symbolData.symbolChange.replace(/ /g, '')
-        ) {
-          console.log(element.payload.doc.data());
-          symbolData.symbolChange = element.payload.doc.data().symbolChange; // sustituye equivalencia
-          console.log('------sustitucion', symbolData.symbolChange);
-        }
-      });
-    }
+    // this.equivalentProfile.forEach((element) => {
+    //   // Busca equivalencia
+    //   if (
+    //     element.payload.doc.id === symbolData.symbolChange.replace(/ /g, '')
+    //   ) {
+    //     console.log(element.payload.doc.data());
+    //     symbolData.symbolChange = element.payload.doc.data().symbolChange; // sustituye equivalencia
+    //     console.log('------sustitucion', symbolData.symbolChange);
+    //   }
+    // });
     // console.log(symbolData);
     this.profileService
       .profile(symbolData.symbolChange.replace(/ /g, ''))
@@ -92,7 +89,6 @@ export class ProfileComponent implements OnChanges, OnInit {
               mic: symbolData.mic,
               symbol: symbolData.symbol.replace(/ /g, ''),
               symbolChange: symbolData.symbolChange,
-              confirm: true,
               type: symbolData.type,
               country: response.country,
               exchange: response.exchange,

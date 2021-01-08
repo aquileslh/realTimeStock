@@ -41,5 +41,4 @@ export class ProfileService {
     return this.afs.collection(this.equivalentProfileCollection).snapshotChanges();
   }
 
-
 }

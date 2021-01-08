@@ -25,7 +25,10 @@
       "@grillo-software/final-user/briefcase": [
         "libs/final-user/briefcase/src/index.ts"
       ],
-      "@grillo-software/service": ["libs/service/src/index.ts"]
+      "@grillo-software/service": ["libs/service/src/index.ts"],
+      "@grillo-software/final-user/stock": [
+        "libs/final-user/stock/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

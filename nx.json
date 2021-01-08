@@ -50,6 +50,9 @@
     },
     "service": {
       "tags": []
+    },
+    "final-user-stock": {
+      "tags": ["finalUser"]
     }
   }
 }
