@@ -10,18 +10,23 @@ import { AppComponent } from './app.component';
 
 const routes: Routes = [
   {
-    path: 'stock',
-    loadChildren: () =>
-      import('@grillo-software/final-user/stock').then(
-        (m) => m.FinalUserStockModule
-      ),
-  },
-  {
-    path: 'portafolio',
-    loadChildren: () =>
-      import('@grillo-software/final-user/briefcase').then(
-        (m) => m.FinalUserBriefcaseModule
-      ),
+    path: 'usuario',
+    children: [
+      {
+        path: 'portafolio',
+        loadChildren: () =>
+          import('@grillo-software/final-user/briefcase').then(
+            (m) => m.FinalUserBriefcaseModule
+          ),
+      },
+      {
+        path: 'stock',
+        loadChildren: () =>
+          import('@grillo-software/final-user/stock').then(
+            (m) => m.FinalUserStockModule
+          ),
+      },
+    ],
   },
   {
     path: 'admin',

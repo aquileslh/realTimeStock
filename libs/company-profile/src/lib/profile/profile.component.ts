@@ -65,17 +65,16 @@ export class ProfileComponent implements OnChanges, OnInit {
    * @param symbol simbolo
    */
   private getProfile(symbolData: SymbolData): void {
-    // this.equivalentProfile.forEach((element) => {
-    //   // Busca equivalencia
-    //   if (
-    //     element.payload.doc.id === symbolData.symbolChange.replace(/ /g, '')
-    //   ) {
-    //     console.log(element.payload.doc.data());
-    //     symbolData.symbolChange = element.payload.doc.data().symbolChange; // sustituye equivalencia
-    //     console.log('------sustitucion', symbolData.symbolChange);
-    //   }
-    // });
-    // console.log(symbolData);
+    this.equivalentProfile.forEach((element) => {
+      // Busca equivalencia
+      if (
+        element.payload.doc.id === symbolData.symbolChange.replace(/ /g, '')
+      ) {
+        console.log(element.payload.doc.data());
+        symbolData.symbolChange = element.payload.doc.data().symbolChange; // sustituye equivalencia
+        console.log('------sustitucion', symbolData.symbolChange);
+      }
+    });
     this.profileService
       .profile(symbolData.symbolChange.replace(/ /g, ''))
       .subscribe(
