@@ -1,25 +1,14 @@
-<div>
-  <section>
-    <p>filtros de stock</p>
-  </section>
-  <section>
-    <div *ngFor="let profile of symbols">
-      <div class="display-flex element-position">
-        <b class="gri-card-title">{{ profile.payload.doc.data().symbol }}</b>
-        <span class="gri-card-subtitle">{{
-          profile.payload.doc.data().name
-          }}</span>
+<div id="user-stock">
+  <div class="display-flex content">
+    <section>
+      <p>filtros de stock</p>
+    </section>
+    <section>
+      <div class="gri-card" *ngFor="let profile of symbols">
+        <grillo-software-company-profile
+        [profile]="profile.payload.doc.data()"
+        ></grillo-software-company-profile>
       </div>
-      <div class="display-flex element-position">
-        <span class="gri-text">Country: {{ profile.payload.doc.data().country }}
-        </span>
-        <span class="gri-text">Currency: {{ profile.payload.doc.data().currency }}</span>
-        <span class="gri-text">Industry: {{ profile.payload.doc.data().finnhubIndustry }}</span>
-        <span class="gri-text">Market Capitalization:
-          {{ profile.payload.doc.data().marketCapitalization }}</span>
-        <span class="gri-text">Share Outstanding:
-          {{ profile.payload.doc.data().shareOutstanding }}</span>
-      </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </div>

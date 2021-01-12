@@ -393,6 +393,41 @@
           "style": "scss"
         }
       }
+    },
+    "shared-shared-component": {
+      "projectType": "library",
+      "root": "libs/shared/shared-component",
+      "sourceRoot": "libs/shared/shared-component/src",
+      "prefix": "grillo-software",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/shared-component/tsconfig.lib.json",
+              "libs/shared/shared-component/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/shared-component/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/shared-component/jest.config.js",
+            "tsConfig": "libs/shared/shared-component/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/shared/shared-component/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {

@@ -53,6 +53,9 @@
     },
     "final-user-stock": {
       "tags": ["finalUser"]
+    },
+    "shared-shared-component": {
+      "tags": ["shared"]
     }
   }
 }
