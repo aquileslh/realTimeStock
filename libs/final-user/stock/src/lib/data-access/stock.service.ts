@@ -10,6 +10,10 @@ export class StockService {
   constructor(private readonly afs: AngularFirestore) {}
 
   getAll() {
-    return this.afs.collection(this.profileCollection).snapshotChanges();
+    return this.afs.collection(this.profileCollection).valueChanges();
+  }
+
+  getToCountry(country: any) {
+    return this.afs.collection(this.profileCollection, ref => ref.where('country', '==', country)).valueChanges();
   }
 }
