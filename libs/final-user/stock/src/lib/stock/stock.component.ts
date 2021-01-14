@@ -15,7 +15,6 @@ export class StockComponent implements OnInit {
       console.log(element.length);
       this.symbols = element;
     });
-
   }
 
   filterToCountry(country: string) {
@@ -25,4 +24,5 @@ export class StockComponent implements OnInit {
       this.symbols = response;
     });
   }
+
 }

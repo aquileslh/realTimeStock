@@ -1,6 +1,6 @@
 <div>
   <div class="display-flex element-position">
-    <b class="gri-card-title">{{ profile.symbol }}</b>
+    <b class="gri-card-title">{{ profile.symbolChange }}</b>
     <span class="gri-card-subtitle">{{ profile.name }}</span>
   </div>
   <div class="display-flex element-position">
@@ -13,5 +13,8 @@
     <span class="gri-text"
       >Share Outstanding: {{ profile.shareOutstanding }}</span
     >
+  </div>
+  <div>
+    <button (click)="getFinancials(profile.symbolChange)">Carga finansas</button>
   </div>
 </div>
