@@ -9,6 +9,9 @@ import { FinancialsService } from '../data-access/financials.service';
 export class CompanyProfileComponent implements OnInit {
   @Input() profile: any;
 
+  public financials: any;
+  public quote: any;
+
   constructor(private financialService: FinancialsService) {}
 
   ngOnInit(): void {}
@@ -16,6 +19,17 @@ export class CompanyProfileComponent implements OnInit {
   getFinancials(symbol: string) {
     this.financialService.basic(symbol).subscribe((response: any) => {
       console.log(response);
+      this.financials = response;
+      this.getQuote(symbol);
     });
+  }
+
+  getQuote(symbol: string) {
+    this.financialService.quote(symbol).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.quote = response;
+      }
+    )
   }
 }

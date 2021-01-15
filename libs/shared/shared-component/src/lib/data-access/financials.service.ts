@@ -13,4 +13,12 @@ export class FinancialsService {
         '&metric=all&token=bu9jf2748v6tjsddpvpg'
     );
   }
+
+  quote(symbol: string) {
+    return this.http.get(
+      'https://finnhub.io/api/v1/quote?symbol=' +
+        symbol +
+        '&token=bu9jf2748v6tjsddpvpg'
+    );
+  }
 }
