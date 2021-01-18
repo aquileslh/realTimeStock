@@ -12,6 +12,9 @@ export class ProfileService {
   private readonly profileCollection = 'profiles';
   private readonly withoutProfileCollection = 'withoutProfile';
   private readonly equivalentProfileCollection = 'equivalentProfile';
+
+  public equivalentProfiles: [];
+
 	constructor(
     private http: HttpClient,
     private readonly afs: AngularFirestore

@@ -38,17 +38,13 @@ export class ProfileComponent implements OnChanges, OnInit {
   @Input() symbol: any;
 
   public profiles = [];
-  private equivalentProfile = [];
+
   constructor(
     private profileService: ProfileService,
     private candlesService: CandlesService
   ) {}
 
-  ngOnInit() {
-    this.profileService.equivalentProfile().subscribe((red: any) => {
-      this.equivalentProfile = red;
-    });
-  }
+  ngOnInit() {}
 
   /**
    * Escucha los eventos de cambio emitidos por el componente padre
@@ -65,7 +61,7 @@ export class ProfileComponent implements OnChanges, OnInit {
    * @param symbol simbolo
    */
   private getProfile(symbolData: SymbolData): void {
-    this.equivalentProfile.forEach((element) => {
+    this.profileService.equivalentProfiles.forEach((element: any) => {
       // Busca equivalencia
       if (
         element.payload.doc.id === symbolData.symbolChange.replace(/ /g, '')

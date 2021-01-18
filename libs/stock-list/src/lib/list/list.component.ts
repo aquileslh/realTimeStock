@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProfileService } from 'libs/company-profile/src/lib/data-access/profile.service';
 import { from, of } from 'rxjs';
 import { concatMap, delay, take } from 'rxjs/operators';
 import { ForexSymbolService } from '../data-access/forex-symbol.service';
@@ -11,10 +12,16 @@ export class ListComponent implements OnInit {
   public forexSymbols: any;
   public symbol: any;
 
-  constructor(private forexSymbol: ForexSymbolService) {}
+  constructor(
+    private forexSymbol: ForexSymbolService,
+    private profileService: ProfileService
+  ) {}
 
   ngOnInit(): void {
     this.getSymbols('MX');
+    this.profileService.equivalentProfile().subscribe((red: any) => {
+      this.profileService.equivalentProfiles = red;
+    });
   }
 
   /**
@@ -40,8 +47,8 @@ export class ListComponent implements OnInit {
   emiteValue(forexymbol: any) {
     const emt = from(forexymbol);
     const qwe = emt.pipe(concatMap((x) => of(x).pipe(delay(5000))));
-    // qwe.pipe(take(130)).subscribe((x: any) => {
-    qwe.subscribe((x: any) => {
+    qwe.pipe(take(300)).subscribe((x: any) => {
+      // qwe.subscribe((x: any) => {
       x.symbolChange = x.symbol;
       this.symbol = x;
     });
