@@ -1,10 +1,12 @@
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
 export class FinancialsService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+    private afs: AngularFirestore) {}
 
   basic(symbol: string) {
     return this.http.get(
@@ -20,5 +22,13 @@ export class FinancialsService {
         symbol +
         '&token=bu9jf2748v6tjsddpvpg'
     );
+  }
+
+  getDoc(symbol: string) {
+    return this.afs.doc('profiles/' + symbol);
+  }
+
+  updateSymbol(symbolDoc: AngularFirestoreDocument, data: any) {
+    return symbolDoc.update(data)
   }
 }

@@ -20,16 +20,38 @@ export class CompanyProfileComponent implements OnInit {
     this.financialService.basic(symbol).subscribe((response: any) => {
       console.log(response);
       this.financials = response;
+      this.profile.financials = {
+        metric: {
+          '52WeekHighDate': this.financials.metric['52WeekHighDate'],
+          '52WeekHigh': this.financials.metric['52WeekHigh'],
+          '52WeekLowDate': this.financials.metric['52WeekLowDate'],
+          '52WeekLow': this.financials.metric['52WeekLow'],
+        },
+      };
       this.getQuote(symbol);
     });
   }
 
   getQuote(symbol: string) {
-    this.financialService.quote(symbol).subscribe(
-      (response: any) => {
+    this.financialService.quote(symbol).subscribe((response: any) => {
+      console.log(response);
+      this.quote = response;
+      this.profile.quote = this.quote;
+      this.updateSymbol(this.profile);
+    });
+  }
+
+  updateSymbol(data: any) {
+    const doc = this.financialService.getDoc(data.symbol);
+    console.log(doc);
+    console.log(data);
+    this.financialService
+      .updateSymbol(doc, data)
+      .then((response: any) => {
         console.log(response);
-        this.quote = response;
-      }
-    )
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
   }
 }

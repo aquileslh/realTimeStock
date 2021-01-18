@@ -14,13 +14,13 @@
       >Share Outstanding: {{ profile.shareOutstanding }}</span
     >
   </div>
-  <div *ngIf="financials">
-    <span *ngIf="!financials.metric['52WeekHigh']">Información incompleta</span>
+  <div *ngIf="profile.financials">
     <div class="display-flex element-position">
-      <span class="gri-text">{{financials.metric['52WeekLowDate']}}</span>
-      <span class="gri-text">{{financials.metric['52WeekLow']}}</span>
-      <span class="gri-text">{{financials.metric['52WeekHighDate']}}</span>
-      <span class="gri-text">{{financials.metric['52WeekHigh']}}</span>
+      <span class="gri-text">{{profile.financials.metric['52WeekLow']}}</span>
+      <span class="gri-text">{{profile.financials.metric['52WeekLowDate']}}</span>
+      <span class="gri-text">{{profile.quote.c}}</span>
+      <span class="gri-text">{{profile.financials.metric['52WeekHighDate']}}</span>
+      <span class="gri-text">{{profile.financials.metric['52WeekHigh']}}</span>
     </div>
   </div>
   <div>
