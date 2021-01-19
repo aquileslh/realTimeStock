@@ -61,62 +61,70 @@ export class ProfileComponent implements OnChanges, OnInit {
    * @param symbol simbolo
    */
   private getProfile(symbolData: SymbolData): void {
-    this.profileService.equivalentProfiles.forEach((element: any) => {
-      // Busca equivalencia
-      if (
-        element.payload.doc.id === symbolData.symbolChange.replace(/ /g, '')
-      ) {
-        console.log(element.payload.doc.data());
-        symbolData.symbolChange = element.payload.doc.data().symbolChange; // sustituye equivalencia
-        console.log('------sustitucion', symbolData.symbolChange);
-      }
-    });
-    this.profileService
-      .profile(symbolData.symbolChange.replace(/ /g, ''))
-      .subscribe(
-        (response: Profile) => {
-          if (response.country) {
-            const profile = {
-              currency: response.currency,
-              description: symbolData.description,
-              displaySymbol: symbolData.displaySymbol,
-              figi: symbolData.figi,
-              mic: symbolData.mic,
-              symbol: symbolData.symbol.replace(/ /g, ''),
-              symbolChange: symbolData.symbolChange,
-              type: symbolData.type,
-              country: response.country,
-              exchange: response.exchange,
-              ipo: response.ipo,
-              marketCapitalization: response.marketCapitalization,
-              name: response.name,
-              phone: response.phone,
-              shareOutstanding: response.shareOutstanding,
-              ticker: response.ticker,
-              weburl: response.weburl,
-              logo: response.logo,
-              finnhubIndustry: response.finnhubIndustry,
-            };
-            this.profileService.save(profile.symbol, profile).then((resp) => {
-              this.profiles.push(profile);
-            });
-            // elimina sin perfil si se encuantra en la lista
-            this.profileService.deleteWithoutProfile(
-              symbolData.displaySymbol.replace(/ /g, '')
-            );
-          } else {
-            // Guarda en lista sin perfil y posible equivalencia
-            const symbol = symbolData.symbolChange.replace(/ /g, '');
-            const equivalent = symbol.split('*');
-            this.profileService.saveWithoutProfile(symbol, symbolData);
-            symbolData.symbolChange = equivalent[0]; // Actualiza el symbolo por el nuevo que si consulta el perfil
-            this.profileService.saveEquivalentProfile(symbol, symbolData);
-          }
-        },
-        (error: any) => {
-          console.log(error);
+    if (symbolData.type === 'ETP') {
+      // sin equivalencia
+      console.log('sin equivalencia');
+      const symbol = symbolData.symbolChange.replace(/ /g, '');
+      const equivalent = symbol.split('*');
+      symbolData.symbolChange = equivalent[0]; // Actualiza el symbolo por el nuevo que si consulta el perfil
+      this.profileService.saveWithoutProfile(symbol, symbolData);
+    } else {
+      this.profileService.equivalentProfiles.forEach((element: any) => {
+        // Busca equivalencia
+        if (
+          element.payload.doc.id === symbolData.symbolChange.replace(/ /g, '')
+        ) {
+          symbolData.symbolChange = element.payload.doc.data().symbolChange; // sustituye equivalencia
+          console.log('------sustitucion', symbolData.symbolChange);
         }
-      );
+      });
+      this.profileService
+        .profile(symbolData.symbolChange.replace(/ /g, ''))
+        .subscribe(
+          (response: Profile) => {
+            if (response.country) {
+              const profile = {
+                currency: response.currency,
+                description: symbolData.description,
+                displaySymbol: symbolData.displaySymbol,
+                figi: symbolData.figi,
+                mic: symbolData.mic,
+                symbol: symbolData.symbol.replace(/ /g, ''),
+                symbolChange: symbolData.symbolChange,
+                type: symbolData.type,
+                country: response.country,
+                exchange: response.exchange,
+                ipo: response.ipo,
+                marketCapitalization: response.marketCapitalization,
+                name: response.name,
+                phone: response.phone,
+                shareOutstanding: response.shareOutstanding,
+                ticker: response.ticker,
+                weburl: response.weburl,
+                logo: response.logo,
+                finnhubIndustry: response.finnhubIndustry,
+              };
+              this.profileService.save(profile.symbol, profile).then((resp) => {
+                this.profiles.push(profile);
+              });
+              // elimina sin perfil si se encuantra en la lista
+              this.profileService.deleteWithoutProfile(
+                symbolData.displaySymbol.replace(/ /g, '')
+              );
+            } else {
+              // Guarda en lista sin perfil y posible equivalencia
+              const symbol = symbolData.symbolChange.replace(/ /g, '');
+              const equivalent = symbol.split('*');
+              this.profileService.saveWithoutProfile(symbol, symbolData);
+              symbolData.symbolChange = equivalent[0]; // Actualiza el symbolo por el nuevo que si consulta el perfil
+              this.profileService.saveEquivalentProfile(symbol, symbolData);
+            }
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
+    }
   }
 
   graph(ticker: string, response: any) {

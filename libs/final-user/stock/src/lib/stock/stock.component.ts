@@ -20,7 +20,7 @@ export class StockComponent implements OnInit {
   filterToCountry(country: string) {
     console.log(country);
     this.stockService.getToCountry(country).subscribe((response: any) => {
-      console.log(response);
+      // console.log(response);
       this.symbols = response;
     });
   }
