@@ -61,25 +61,27 @@ export class ProfileComponent implements OnChanges, OnInit {
    * @param symbol simbolo
    */
   private getProfile(symbolData: SymbolData): void {
+    let withEquivalent = false;
     if (symbolData.type === 'ETP') {
       // sin equivalencia
-      console.log('sin equivalencia');
-      const symbol = symbolData.symbolChange.replace(/ /g, '');
-      const equivalent = symbol.split('*');
-      symbolData.symbolChange = equivalent[0]; // Actualiza el symbolo por el nuevo que si consulta el perfil
-      this.profileService.saveWithoutProfile(symbol, symbolData);
+      this.profileService
+        .saveWithoutProfile(symbolData.symbol, symbolData)
+        .then((resp) => {
+          console.log('guardado ETP', symbolData.symbol, resp);
+        });
     } else {
       this.profileService.equivalentProfiles.forEach((element: any) => {
         // Busca equivalencia
         if (
-          element.payload.doc.id === symbolData.symbolChange.replace(/ /g, '')
+          element.payload.doc.id === symbolData.symbol
         ) {
           symbolData.symbolChange = element.payload.doc.data().symbolChange; // sustituye equivalencia
+          withEquivalent = true;
           console.log('------sustitucion', symbolData.symbolChange);
         }
       });
       this.profileService
-        .profile(symbolData.symbolChange.replace(/ /g, ''))
+        .profile(symbolData.symbolChange)
         .subscribe(
           (response: Profile) => {
             if (response.country) {
@@ -89,7 +91,7 @@ export class ProfileComponent implements OnChanges, OnInit {
                 displaySymbol: symbolData.displaySymbol,
                 figi: symbolData.figi,
                 mic: symbolData.mic,
-                symbol: symbolData.symbol.replace(/ /g, ''),
+                symbol: symbolData.symbol,
                 symbolChange: symbolData.symbolChange,
                 type: symbolData.type,
                 country: response.country,
@@ -105,19 +107,41 @@ export class ProfileComponent implements OnChanges, OnInit {
                 finnhubIndustry: response.finnhubIndustry,
               };
               this.profileService.save(profile.symbol, profile).then((resp) => {
+                console.log('guardado', profile.symbolChange, resp);
                 this.profiles.push(profile);
               });
               // elimina sin perfil si se encuantra en la lista
-              this.profileService.deleteWithoutProfile(
-                symbolData.displaySymbol.replace(/ /g, '')
-              );
+              this.profileService
+                .deleteWithoutProfile(
+                  symbolData.displaySymbol.replace(/ /g, '')
+                )
+                .then((resp) => {
+                  console.log('eliminado', profile.symbolChange, resp);
+                });
             } else {
-              // Guarda en lista sin perfil y posible equivalencia
-              const symbol = symbolData.symbolChange.replace(/ /g, '');
-              const equivalent = symbol.split('*');
-              this.profileService.saveWithoutProfile(symbol, symbolData);
-              symbolData.symbolChange = equivalent[0]; // Actualiza el symbolo por el nuevo que si consulta el perfil
-              this.profileService.saveEquivalentProfile(symbol, symbolData);
+              debugger
+              if (withEquivalent) {
+                // Elimina la equivalencio si no se encuentra el perfil
+                this.profileService
+                  .deleteEquivalentProfile(symbolData.symbol)
+                  .then((resp) => {
+                    console.log('eliminado equivalente', symbolData.symbol, resp);
+                  });
+              } else {
+                // Guarda en lista sin perfil y posible equivalencia
+                this.profileService
+                  .saveWithoutProfile(symbolData.symbol, symbolData)
+                  .then((resp) => {
+                    console.log('guardado sin profile', symbolData.symbolChange, resp);
+                  });
+                const equivalent = symbolData.symbolChange.split('.');// Se pretende Eliminar la parte de .MX del symbol
+                symbolData.symbolChange = equivalent[0];
+                this.profileService
+                  .saveEquivalentProfile(symbolData.symbol, symbolData)
+                  .then((resp) => {
+                    console.log('guardado equivalente', symbolData.symbolChange, resp);
+                  });
+              }
             }
           },
           (error: any) => {

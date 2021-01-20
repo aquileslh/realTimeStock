@@ -33,11 +33,15 @@ export class ProfileService {
   }
 
   deleteWithoutProfile(symbol: string) {
-    this.afs.collection(this.withoutProfileCollection).doc(symbol).delete();
+    return this.afs.collection(this.withoutProfileCollection).doc(symbol).delete();
   }
 
   saveEquivalentProfile(symbol: string, data: any) {
     return this.afs.collection(this.equivalentProfileCollection).doc(symbol).set(data);
+  }
+
+  deleteEquivalentProfile(symbol: string) {
+    return this.afs.collection(this.equivalentProfileCollection).doc(symbol).delete()
   }
 
   equivalentProfile(){
