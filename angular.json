@@ -303,6 +303,131 @@
           "style": "scss"
         }
       }
+    },
+    "final-user-briefcase": {
+      "projectType": "library",
+      "root": "libs/final-user/briefcase",
+      "sourceRoot": "libs/final-user/briefcase/src",
+      "prefix": "grillo-software",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/final-user/briefcase/tsconfig.lib.json",
+              "libs/final-user/briefcase/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/final-user/briefcase/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/final-user/briefcase/jest.config.js",
+            "tsConfig": "libs/final-user/briefcase/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/final-user/briefcase/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "service": {
+      "root": "libs/service",
+      "sourceRoot": "libs/service/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/service/tsconfig.lib.json",
+              "libs/service/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/service/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/service/jest.config.js",
+            "tsConfig": "libs/service/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "final-user-stock": {
+      "projectType": "library",
+      "root": "libs/final-user/stock",
+      "sourceRoot": "libs/final-user/stock/src",
+      "prefix": "grillo-software",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/final-user/stock/tsconfig.lib.json",
+              "libs/final-user/stock/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/final-user/stock/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/final-user/stock/jest.config.js",
+            "tsConfig": "libs/final-user/stock/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/final-user/stock/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "shared-shared-component": {
+      "projectType": "library",
+      "root": "libs/shared/shared-component",
+      "sourceRoot": "libs/shared/shared-component/src",
+      "prefix": "grillo-software",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/shared-component/tsconfig.lib.json",
+              "libs/shared/shared-component/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/shared-component/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/shared-component/jest.config.js",
+            "tsConfig": "libs/shared/shared-component/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/shared/shared-component/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {

@@ -44,6 +44,18 @@
     },
     "company-profile": {
       "tags": []
+    },
+    "final-user-briefcase": {
+      "tags": ["finalUser"]
+    },
+    "service": {
+      "tags": []
+    },
+    "final-user-stock": {
+      "tags": ["finalUser"]
+    },
+    "shared-shared-component": {
+      "tags": ["shared"]
     }
   }
 }

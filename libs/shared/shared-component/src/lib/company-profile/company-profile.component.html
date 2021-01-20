@@ -1,0 +1,29 @@
+<div>
+  <div class="display-flex element-position">
+    <b class="gri-card-title">{{ profile.symbolChange }}</b>
+    <span class="gri-card-subtitle">{{ profile.name }}</span>
+  </div>
+  <div class="display-flex element-position">
+    <span class="gri-text">Country: {{ profile.country }} </span>
+    <span class="gri-text">Currency: {{ profile.currency }}</span>
+    <span class="gri-text">Industry: {{ profile.finnhubIndustry }}</span>
+    <span class="gri-text"
+      >Market Capitalization: {{ profile.marketCapitalization }}</span
+    >
+    <span class="gri-text"
+      >Share Outstanding: {{ profile.shareOutstanding }}</span
+    >
+  </div>
+  <div *ngIf="profile.financials">
+    <div class="display-flex element-position">
+      <span class="gri-text">{{profile.financials.metric['52WeekLow']}}</span>
+      <span class="gri-text">{{profile.financials.metric['52WeekLowDate']}}</span>
+      <span class="gri-text">{{profile.quote.c}}</span>
+      <span class="gri-text">{{profile.financials.metric['52WeekHighDate']}}</span>
+      <span class="gri-text">{{profile.financials.metric['52WeekHigh']}}</span>
+    </div>
+  </div>
+  <div>
+    <button (click)="getFinancials(profile.symbolChange)">Carga financials</button>
+  </div>
+</div>

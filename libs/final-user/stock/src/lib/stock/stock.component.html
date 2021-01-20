@@ -1,0 +1,16 @@
+<div id="user-stock">
+  <div class="display-flex content">
+    <section>
+      <p>filtros de stock</p>
+      <input type="text" #countries>
+      <button (click)="filterToCountry(countries.value)">buscar</button>
+    </section>
+    <section>
+      <div class="gri-card" *ngFor="let profile of symbols">
+        <grillo-software-company-profile
+        [profile]="profile"
+        ></grillo-software-company-profile>
+      </div>
+    </section>
+  </div>
+</div>
