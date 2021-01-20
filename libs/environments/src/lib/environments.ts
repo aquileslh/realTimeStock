@@ -11,18 +11,7 @@ export const environment = {
     two: 'twokey',
   },
 
-  tokenFinnhub : 'bu9jf2748v6tjsddpvpg',
-  domainFinnhub : 'https://finnhub.io/api/v1/stock/',
 
-  firebaseConfig : {
-    apiKey: "AIzaSyASBGpVTdqzMqGM_WlHUNBWhTRURKaKjC8",
-    authDomain: "sharesofstock-35a56.firebaseapp.com",
-    databaseURL: "https://sharesofstock-35a56.firebaseio.com",
-    projectId: "sharesofstock-35a56",
-    storageBucket: "sharesofstock-35a56.appspot.com",
-    messagingSenderId: "468234275502",
-    appId: "1:468234275502:web:cde98bc307ad4db5f3fb3f"
-  }
 };
 
 /*
