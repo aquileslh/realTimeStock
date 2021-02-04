@@ -6,7 +6,7 @@
       <button (click)="filterToCountry(countries.value)">buscar</button>
     </section>
     <section>
-      <div class="gri-card" *ngFor="let profile of symbols">
+      <div class="gri-card" *ngFor="let profile of sym | async">
         <grillo-software-company-profile
         [profile]="profile"
         ></grillo-software-company-profile>

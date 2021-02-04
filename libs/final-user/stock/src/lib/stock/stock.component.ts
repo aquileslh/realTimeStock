@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { StockService } from './../data-access/stock.service';
 
@@ -8,13 +9,20 @@ import { StockService } from './../data-access/stock.service';
 })
 export class StockComponent implements OnInit {
   public symbols: any;
+  public sym: Observable<any>;
+
   constructor(private stockService: StockService) {}
 
   ngOnInit(): void {
-    this.stockService.getAll().subscribe((element) => {
-      console.log(element.length);
-      this.symbols = element;
-    });
+    this.getAllStock();
+  }
+
+  public getAllStock() {
+    this.sym = this.stockService.getAll();
+    // this.stockService.getAll().subscribe((element) => {
+    //   console.log(element.length);
+    //   this.symbols = element;
+    // });
   }
 
   filterToCountry(country: string) {
@@ -24,5 +32,4 @@ export class StockComponent implements OnInit {
       this.symbols = response;
     });
   }
-
 }

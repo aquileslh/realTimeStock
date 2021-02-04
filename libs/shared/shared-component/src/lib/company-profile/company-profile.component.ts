@@ -16,8 +16,8 @@ export class CompanyProfileComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  getFinancials(symbol: string) {
-    this.financialService.basic(symbol).subscribe((response: any) => {
+  getFinancials(ticker: string) {
+    this.financialService.basic(ticker).subscribe((response: any) => {
       console.log(response);
       this.financials = response;
       this.profile.financials = {
@@ -28,12 +28,12 @@ export class CompanyProfileComponent implements OnInit {
           '52WeekLow': this.financials.metric['52WeekLow'],
         },
       };
-      this.getQuote(symbol);
+      this.getQuote(ticker);
     });
   }
 
-  getQuote(symbol: string) {
-    this.financialService.quote(symbol).subscribe((response: any) => {
+  getQuote(ticker: string) {
+    this.financialService.quote(ticker).subscribe((response: any) => {
       console.log(response);
       this.quote = response;
       this.profile.quote = this.quote;
