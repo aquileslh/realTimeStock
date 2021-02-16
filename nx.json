@@ -39,9 +39,6 @@
     "indices-bar": {
       "tags": []
     },
-    "admin-dashboard": {
-      "tags": []
-    },
     "company-profile": {
       "tags": []
     },
@@ -56,6 +53,9 @@
     },
     "shared-shared-component": {
       "tags": ["shared"]
+    },
+    "admin-board": {
+      "tags": ["featureAdmin"]
     }
   }
 }

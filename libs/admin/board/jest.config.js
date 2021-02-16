@@ -1,6 +1,6 @@
 module.exports = {
-  name: 'admin-dashboard',
-  preset: '../../jest.config.js',
+  name: 'admin-board',
+  preset: '../../../jest.config.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -12,7 +12,7 @@ module.exports = {
       ],
     },
   },
-  coverageDirectory: '../../coverage/libs/admin-dashboard',
+  coverageDirectory: '../../../coverage/libs/admin/board',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',

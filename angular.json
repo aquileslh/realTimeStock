@@ -240,38 +240,6 @@
         }
       }
     },
-    "admin-dashboard": {
-      "projectType": "library",
-      "root": "libs/admin-dashboard",
-      "sourceRoot": "libs/admin-dashboard/src",
-      "prefix": "grillo-software",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/admin-dashboard/tsconfig.lib.json",
-              "libs/admin-dashboard/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/admin-dashboard/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/admin-dashboard/jest.config.js",
-            "tsConfig": "libs/admin-dashboard/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/admin-dashboard/src/test-setup.ts"
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
-        }
-      }
-    },
     "company-profile": {
       "projectType": "library",
       "root": "libs/company-profile",
@@ -420,6 +388,38 @@
             "tsConfig": "libs/shared/shared-component/tsconfig.spec.json",
             "passWithNoTests": true,
             "setupFile": "libs/shared/shared-component/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "admin-board": {
+      "projectType": "library",
+      "root": "libs/admin/board",
+      "sourceRoot": "libs/admin/board/src",
+      "prefix": "grillo-software",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/admin/board/tsconfig.lib.json",
+              "libs/admin/board/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/admin/board/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/admin/board/jest.config.js",
+            "tsConfig": "libs/admin/board/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/admin/board/src/test-setup.ts"
           }
         }
       },

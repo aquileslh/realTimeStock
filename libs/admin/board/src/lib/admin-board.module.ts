@@ -1,12 +1,12 @@
-import { CommonModule } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { CommonModule } from '@angular/common';
+import { BoardComponent } from './board/board.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: AdminDashboardComponent,
+    component: BoardComponent,
     children: [
       {
         path: 'list',
@@ -17,8 +17,9 @@ const routes: Routes = [
   }
 ];
 
+
 @NgModule({
   imports: [CommonModule, RouterModule.forChild(routes)],
-  declarations: [AdminDashboardComponent],
+  declarations: [BoardComponent],
 })
-export class AdminDashboardModule {}
+export class AdminBoardModule {}
