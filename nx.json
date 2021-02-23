@@ -33,9 +33,6 @@
       "tags": ["environments"]
     },
     "styles": {},
-    "stock-list": {
-      "tags": []
-    },
     "indices-bar": {
       "tags": []
     },
@@ -55,6 +52,9 @@
       "tags": ["shared"]
     },
     "admin-board": {
+      "tags": ["featureAdmin"]
+    },
+    "admin-stock-list": {
       "tags": ["featureAdmin"]
     }
   }

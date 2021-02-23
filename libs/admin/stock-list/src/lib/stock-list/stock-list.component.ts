@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { ProfileService } from 'libs/company-profile/src/lib/data-access/profile.service';
-import { from, of } from 'rxjs';
 import { concatMap, delay, take } from 'rxjs/operators';
-import { ForexSymbolService } from '../data-access/forex-symbol.service';
+import { ForexSymbolService } from './../data-access/forex-symbol.service';
+import { Component, OnInit } from '@angular/core';
+import { from, of } from 'rxjs';
+import { ProfileService } from '../data-access/profile.service';
+
 @Component({
-  selector: 'grillo-software-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
+  selector: 'grillo-software-stock-list',
+  templateUrl: './stock-list.component.html',
+  styleUrls: ['./stock-list.component.scss']
 })
-export class ListComponent implements OnInit {
+export class StockListComponent implements OnInit {
   public forexSymbols: any;
   public symbol: any;
 

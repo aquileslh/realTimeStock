@@ -176,38 +176,6 @@
         }
       }
     },
-    "stock-list": {
-      "projectType": "library",
-      "root": "libs/stock-list",
-      "sourceRoot": "libs/stock-list/src",
-      "prefix": "grillo-software",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/stock-list/tsconfig.lib.json",
-              "libs/stock-list/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/stock-list/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/stock-list/jest.config.js",
-            "tsConfig": "libs/stock-list/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/stock-list/src/test-setup.ts"
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
-        }
-      }
-    },
     "indices-bar": {
       "projectType": "library",
       "root": "libs/indices-bar",
@@ -420,6 +388,38 @@
             "tsConfig": "libs/admin/board/tsconfig.spec.json",
             "passWithNoTests": true,
             "setupFile": "libs/admin/board/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "admin-stock-list": {
+      "projectType": "library",
+      "root": "libs/admin/stock-list",
+      "sourceRoot": "libs/admin/stock-list/src",
+      "prefix": "grillo-software",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/admin/stock-list/tsconfig.lib.json",
+              "libs/admin/stock-list/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/admin/stock-list/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/admin/stock-list/jest.config.js",
+            "tsConfig": "libs/admin/stock-list/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/admin/stock-list/src/test-setup.ts"
           }
         }
       },

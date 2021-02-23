@@ -1,3 +1,4 @@
+import { AdminStockListModule } from './../../../stock-list/src/lib/admin-stock-list.module';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -11,7 +12,7 @@ const routes: Routes = [
       {
         path: 'list',
         loadChildren: () =>
-        import('@grillo-software/stock-list').then((m) => m.StockListModule),
+        import('@grillo-software/admin/stock-list').then((m) => m.AdminStockListModule),
       },
     ]
   }

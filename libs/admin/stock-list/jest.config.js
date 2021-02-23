@@ -1,6 +1,6 @@
 module.exports = {
-  name: 'stock-list',
-  preset: '../../jest.config.js',
+  name: 'admin-stock-list',
+  preset: '../../../jest.config.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -12,7 +12,7 @@ module.exports = {
       ],
     },
   },
-  coverageDirectory: '../../coverage/libs/stock-list',
+  coverageDirectory: '../../../coverage/libs/admin/stock-list',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',

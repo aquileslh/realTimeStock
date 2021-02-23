@@ -18,7 +18,6 @@
     "paths": {
       "@grillo-software/ui": ["libs/ui/src/index.ts"],
       "@grillo-software/environments": ["libs/environments/src/index.ts"],
-      "@grillo-software/stock-list": ["libs/stock-list/src/index.ts"],
       "@grillo-software/indices-bar": ["libs/indices-bar/src/index.ts"],
       "@grillo-software/company-profile": ["libs/company-profile/src/index.ts"],
       "@grillo-software/final-user/briefcase": [
@@ -31,7 +30,10 @@
       "@grillo-software/shared/shared-component": [
         "libs/shared/shared-component/src/index.ts"
       ],
-      "@grillo-software/admin/board": ["libs/admin/board/src/index.ts"]
+      "@grillo-software/admin/board": ["libs/admin/board/src/index.ts"],
+      "@grillo-software/admin/stock-list": [
+        "libs/admin/stock-list/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
