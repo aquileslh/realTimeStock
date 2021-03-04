@@ -1,13 +1,12 @@
+import { Component, OnInit } from '@angular/core';
+import { ProfileService } from '@grillo-software/service';
+import { from, of } from 'rxjs';
 import { concatMap, delay, take } from 'rxjs/operators';
 import { ForexSymbolService } from './../data-access/forex-symbol.service';
-import { Component, OnInit } from '@angular/core';
-import { from, of } from 'rxjs';
-import { ProfileService } from '../data-access/profile.service';
-
 @Component({
   selector: 'grillo-software-stock-list',
   templateUrl: './stock-list.component.html',
-  styleUrls: ['./stock-list.component.scss']
+  styleUrls: ['./stock-list.component.scss'],
 })
 export class StockListComponent implements OnInit {
   public forexSymbols: any;
@@ -48,8 +47,8 @@ export class StockListComponent implements OnInit {
   emiteValue(forexymbol: any) {
     const emt = from(forexymbol);
     const qwe = emt.pipe(concatMap((x) => of(x).pipe(delay(5000))));
-    qwe.pipe(take(30)).subscribe((x: any) => {
-    //qwe.subscribe((x: any) => {
+    qwe.pipe(take(10)).subscribe((x: any) => {
+      //qwe.subscribe((x: any) => {
       x.symbol = x.symbol.replace(/ /g, '');
       x.symbolChange = x.symbol.replace('*', '');
       this.symbol = x;

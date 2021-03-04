@@ -1,9 +1,9 @@
-import { map, mergeMap } from 'rxjs/operators';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ProfileService } from '@grillo-software/service';
 import { createChart } from 'lightweight-charts';
-import { ProfileService } from '../data-access/profile.service';
+import { forkJoin } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
 import { ForexSymbolService } from '../data-access/forex-symbol.service';
-import { of } from 'rxjs';
 
 export interface SymbolData {
   currency: string;
@@ -41,8 +41,10 @@ export class GetInformationComponent implements OnChanges, OnInit {
 
   public profiles = [];
 
-  constructor(private profileService: ProfileService,
-    private forexService: ForexSymbolService) {}
+  constructor(
+    private profileService: ProfileService,
+    private forexService: ForexSymbolService
+  ) {}
 
   ngOnInit() {}
 
@@ -78,106 +80,68 @@ export class GetInformationComponent implements OnChanges, OnInit {
           console.log('------sustitucion', symbolData.symbolChange);
         }
       });
-      this.profileService.profile(symbolData.symbolChange).pipe(
-        map((response: any) => ({
-                  currency: response.currency,
-                  description: symbolData.description,
-                  displaySymbol: symbolData.displaySymbol,
-                  figi: symbolData.figi,
-                  mic: symbolData.mic,
-                  symbol: symbolData.symbol,
-                  symbolChange: symbolData.symbolChange,
-                  type: symbolData.type,
-                  country: response.country,
-                  exchange: response.exchange,
-                  ipo: response.ipo,
-                  marketCapitalization: response.marketCapitalization,
-                  name: response.name,
-                  phone: response.phone,
-                  shareOutstanding: response.shareOutstanding,
-                  ticker: response.ticker,
-                  weburl: response.weburl,
-                  logo: response.logo,
-                  finnhubIndustry: response.finnhubIndustry,
-                })),
-        mergeMap((x: any) => this.forexService.candles(x.ticker))
-      ).subscribe(
+      this.profileService.completeProfile(symbolData).subscribe(
         (resp: any) => {
-          console.log(resp);
+          if (resp !== null) {
+            forkJoin([
+              this.profileService.candles(resp.ticker, 'W'),
+              this.profileService.financials(resp.ticker),
+            ]).subscribe(
+              (resultArr: any) => {
+                // console.log(resultArr[0]);
+                resp.candles = { w: resultArr[0] };
+                // console.log(resultArr[1]);
+                resp.metric = resultArr[1].metric;
+                this.profileService.save(resp.symbol, resp).then((x) => {
+                  console.log('guardado', resp.symbolChange, x);
+                  this.profiles.push(resp);
+                });
+                // elimina sin perfil si se encuantra en la lista
+                this.profileService
+                  .deleteWithoutProfile(symbolData.symbol)
+                  .then((y) => {
+                    console.log('eliminado sin perfil', resp.symbolChange, y);
+                  });
+              },
+              (error) => console.log('Error en algun paso de join' + error)
+            );
+          } else {
+            if (withEquivalent) {
+              // Elimina la equivalencio si no se encuentra el perfil
+              this.profileService
+                .deleteEquivalentProfile(symbolData.symbol)
+                .then((z) => {
+                  console.log('eliminado equivalente', symbolData.symbol, z);
+                });
+            } else {
+              // Guarda en lista sin perfil y posible equivalencia
+              this.profileService
+                .saveWithoutProfile(symbolData.symbol, symbolData)
+                .then((x) => {
+                  console.log(
+                    'guardado sin profile',
+                    symbolData.symbolChange,
+                    x
+                  );
+                });
+              const equivalent = symbolData.symbolChange.split('.'); // Se pretende Eliminar la parte de .MX del symbol
+              symbolData.symbolChange = equivalent[0];
+              this.profileService
+                .saveEquivalentProfile(symbolData.symbol, symbolData)
+                .then((y) => {
+                  console.log(
+                    'guardado equivalente',
+                    symbolData.symbolChange,
+                    y
+                  );
+                });
+            }
+          }
+        },
+        (error: any) => {
+          console.log(error);
         }
       );
-      // this.profileService.profile(symbolData.symbolChange).subscribe(
-      //   (response: Profile) => {
-      //     if (response.country) {
-      //       const profile = {
-      //         currency: response.currency,
-      //         description: symbolData.description,
-      //         displaySymbol: symbolData.displaySymbol,
-      //         figi: symbolData.figi,
-      //         mic: symbolData.mic,
-      //         symbol: symbolData.symbol,
-      //         symbolChange: symbolData.symbolChange,
-      //         type: symbolData.type,
-      //         country: response.country,
-      //         exchange: response.exchange,
-      //         ipo: response.ipo,
-      //         marketCapitalization: response.marketCapitalization,
-      //         name: response.name,
-      //         phone: response.phone,
-      //         shareOutstanding: response.shareOutstanding,
-      //         ticker: response.ticker,
-      //         weburl: response.weburl,
-      //         logo: response.logo,
-      //         finnhubIndustry: response.finnhubIndustry,
-      //       };
-      //       this.profileService.save(profile.symbol, profile).then((resp) => {
-      //         console.log('guardado', profile.symbolChange, resp);
-      //         this.profiles.push(profile);
-      //       });
-      //       // elimina sin perfil si se encuantra en la lista
-      //       this.profileService
-      //         .deleteWithoutProfile(symbolData.displaySymbol.replace(/ /g, ''))
-      //         .then((resp) => {
-      //           console.log('eliminado', profile.symbolChange, resp);
-      //         });
-      //     } else {
-      //       debugger;
-      //       if (withEquivalent) {
-      //         // Elimina la equivalencio si no se encuentra el perfil
-      //         this.profileService
-      //           .deleteEquivalentProfile(symbolData.symbol)
-      //           .then((resp) => {
-      //             console.log('eliminado equivalente', symbolData.symbol, resp);
-      //           });
-      //       } else {
-      //         // Guarda en lista sin perfil y posible equivalencia
-      //         this.profileService
-      //           .saveWithoutProfile(symbolData.symbol, symbolData)
-      //           .then((resp) => {
-      //             console.log(
-      //               'guardado sin profile',
-      //               symbolData.symbolChange,
-      //               resp
-      //             );
-      //           });
-      //         const equivalent = symbolData.symbolChange.split('.'); // Se pretende Eliminar la parte de .MX del symbol
-      //         symbolData.symbolChange = equivalent[0];
-      //         this.profileService
-      //           .saveEquivalentProfile(symbolData.symbol, symbolData)
-      //           .then((resp) => {
-      //             console.log(
-      //               'guardado equivalente',
-      //               symbolData.symbolChange,
-      //               resp
-      //             );
-      //           });
-      //       }
-      //     }
-      //   },
-      //   (error: any) => {
-      //     console.log(error);
-      //   }
-      // );
     }
   }
 

@@ -208,38 +208,6 @@
         }
       }
     },
-    "company-profile": {
-      "projectType": "library",
-      "root": "libs/company-profile",
-      "sourceRoot": "libs/company-profile/src",
-      "prefix": "grillo-software",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/company-profile/tsconfig.lib.json",
-              "libs/company-profile/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/company-profile/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/company-profile/jest.config.js",
-            "tsConfig": "libs/company-profile/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/company-profile/src/test-setup.ts"
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
-        }
-      }
-    },
     "final-user-briefcase": {
       "projectType": "library",
       "root": "libs/final-user/briefcase",

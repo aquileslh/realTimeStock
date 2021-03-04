@@ -1,4 +1,3 @@
-import { CompanyProfileModule } from '@grillo-software/company-profile';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -13,7 +12,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(routes), CompanyProfileModule],
+  imports: [CommonModule, RouterModule.forChild(routes)],
   declarations: [StockListComponent, GetInformationComponent],
 })
 export class AdminStockListModule {}
