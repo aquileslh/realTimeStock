@@ -2,7 +2,6 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ProfileService } from '@grillo-software/service';
 import { createChart } from 'lightweight-charts';
 import { forkJoin } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
 import { ForexSymbolService } from '../data-access/forex-symbol.service';
 
 export interface SymbolData {
@@ -65,6 +64,7 @@ export class GetInformationComponent implements OnChanges, OnInit {
   private getProfile(symbolData: SymbolData): void {
     let withEquivalent = false;
     if (symbolData.type === 'ETP') {
+      // No deja pasar acciones de tipo ETP
       // sin equivalencia
       this.profileService
         .saveWithoutProfile(symbolData.symbol, symbolData)
@@ -89,9 +89,9 @@ export class GetInformationComponent implements OnChanges, OnInit {
             ]).subscribe(
               (resultArr: any) => {
                 // console.log(resultArr[0]);
-                resp.candles = { w: resultArr[0] };
+                resp.candles = { w: resultArr[0] }; //Respuesta de servicio de candles
                 // console.log(resultArr[1]);
-                resp.metric = resultArr[1].metric;
+                resp.metric = resultArr[1].metric; //Respuesta de servicio de financials
                 this.profileService.save(resp.symbol, resp).then((x) => {
                   console.log('guardado', resp.symbolChange, x);
                   this.profiles.push(resp);
