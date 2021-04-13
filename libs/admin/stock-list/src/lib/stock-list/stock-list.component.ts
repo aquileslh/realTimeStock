@@ -47,7 +47,7 @@ export class StockListComponent implements OnInit {
   emiteValue(forexymbol: any) {
     const emt = from(forexymbol);
     const qwe = emt.pipe(concatMap((x) => of(x).pipe(delay(5000))));
-    qwe.pipe(take(50)).subscribe((x: any) => {
+    qwe.pipe(take(5)).subscribe((x: any) => {
       //qwe.subscribe((x: any) => {
       x.symbol = x.symbol.replace(/ /g, '');
       x.symbolChange = x.symbol.replace('*', '');

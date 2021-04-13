@@ -3,7 +3,6 @@ import { ProfileService } from '@grillo-software/service';
 import { createChart } from 'lightweight-charts';
 import { forkJoin } from 'rxjs';
 import { ForexSymbolService } from '../data-access/forex-symbol.service';
-
 export interface SymbolData {
   currency: string;
   description: string;
@@ -40,12 +39,19 @@ export class GetInformationComponent implements OnChanges, OnInit {
 
   public profiles = [];
 
+  dataG = [
+    [1546300800, 1546387200],    // x-values (timestamps)
+    [        35,         71],    // y-values (series 1)
+    [        90,         15],    // y-values (series 2)
+  ];
+
   constructor(
     private profileService: ProfileService,
     private forexService: ForexSymbolService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   /**
    * Escucha los eventos de cambio emitidos por el componente padre
