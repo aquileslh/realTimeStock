@@ -31,7 +31,7 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: () =>
-      import('@grillo-software/admin-dashboard').then(
+      import('@grillo-software/admin/admin-dashboard').then(
         (m) => m.AdminDashboardModule
       ),
   },

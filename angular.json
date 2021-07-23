@@ -242,27 +242,30 @@
     },
     "admin-dashboard": {
       "projectType": "library",
-      "root": "libs/admin-dashboard",
-      "sourceRoot": "libs/admin-dashboard/src",
+      "root": "libs/admin/admin-dashboard",
+      "sourceRoot": "libs/admin/admin-dashboard/src",
       "prefix": "grillo-software",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/admin-dashboard/tsconfig.lib.json",
-              "libs/admin-dashboard/tsconfig.spec.json"
+              "libs/admin/admin-dashboard/tsconfig.lib.json",
+              "libs/admin/admin-dashboard/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/admin-dashboard/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/admin/admin-dashboard/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/admin-dashboard/jest.config.js",
-            "tsConfig": "libs/admin-dashboard/tsconfig.spec.json",
+            "jestConfig": "libs/admin/admin-dashboard/jest.config.js",
+            "tsConfig": "libs/admin/admin-dashboard/tsconfig.spec.json",
             "passWithNoTests": true,
-            "setupFile": "libs/admin-dashboard/src/test-setup.ts"
+            "setupFile": "libs/admin/admin-dashboard/src/test-setup.ts"
           }
         }
       },
